@@ -1,6 +1,6 @@
 PROJECT 		= crocon
 
-CROCON_ROOT 		= ..\..\..
+CROCON_ROOT		= ..\..\..
 
 INC_DIR			= $(CROCON_ROOT)\include
 SRC_DIR 		= $(CROCON_ROOT)\src
@@ -19,10 +19,10 @@ C_FLAGS			= -MT -W3 -GX -Zi -YX -Od
 !endif
 
 
-LD_FLAGS 		= -dll -out:$(BIN_DIR)\crocon.dll -def:$(DEF_DIR)\crocon.def
+LD_FLAGS 		= -dll -def:$(DEF_DIR)\crocon.def
 
 CC_FLAGS		= $(C_FLAGS) -I$(INC_DIR) -DCROC_STATIC_BUILD -DWIN32 -DWINDOWS
-CC_FLAGS_DLL		= $(C_FLAGS) -I$(INC_DIR)
+CC_FLAGS_DLL	= $(C_FLAGS) -I$(INC_DIR)
 CC_LIBS			= user32.lib
 
 CC				= cl -nologo
@@ -38,7 +38,7 @@ all: $(BIN_DIR)\$(PROJECT).dll
 
 $(BIN_DIR)\$(PROJECT).dll: $(OBJECTS)
 	@if not exist $(BIN_DIR) mkdir $(BIN_DIR)
-	$(LINKER) $(LD_FLAGS) /OUT:$@ $**
+	$(LINKER) $(LD_FLAGS) -out:$@ $**
 
 {$(SRC_DIR)}.c{$(OBJ_DIR)}.obj:
 	@if not exist $(CROCON_ROOT)\out mkdir $(CROCON_ROOT)\out
@@ -52,4 +52,6 @@ $(BIN_DIR)\$(PROJECT).dll: $(OBJECTS)
 
 clean:
 	-del $(OBJ_DIR)\*.obj
-	-del $(BIN_DIR)\crocon.lib
+	-del $(BIN_DIR)\*.lib
+	-del $(BIN_DIR)\*.dll
+	-del $(BIN_DIR)\*.exp

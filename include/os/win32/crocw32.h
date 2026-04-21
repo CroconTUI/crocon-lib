@@ -1,5 +1,7 @@
-#ifndef CROCON_OS_WIN32_CROCWIN_H
-#define CROCON_OS_WIN32_CROCWIN_H
+#ifndef _CROCON_OS_WIN32_CROCW32_H
+#define _CROCON_OS_WIN32_CROCW32_H
+
+#include <utils/c_exts.h>
 
 #define WIN32_LEAN_AND_MEAN
 

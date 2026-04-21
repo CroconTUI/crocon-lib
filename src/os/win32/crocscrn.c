@@ -8,6 +8,13 @@ int _crocon_initscr() {
 	
 	HANDLE hStdOut = INVALID_HANDLE_VALUE;
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	int result;
+
+	if(!(result = FreeConsole()))
+		return false;
+
+	if(!(result = AllocConsole()))
+		return false;
 
 	_crocon_stdout = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -20,7 +27,14 @@ int _crocon_initscr() {
 	if(hStdOut == INVALID_HANDLE_VALUE)
 		hStdOut = _crocon_stdout;
 
-	return 0;	
+	return true;	
+}
+
+int _crocon_settitle(const char* title) {
+	
+	int result = SetConsoleTitle(title);
+
+	return result;
 }
 
 #endif
