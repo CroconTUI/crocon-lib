@@ -4,5 +4,6 @@ out/
 *.exp
 *.obj
 *.vcp
+*.pdb
 *.o
 *.so
