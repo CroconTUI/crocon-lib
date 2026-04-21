@@ -1,2 +1,2 @@
-# crocon
+# Crocon
 Crocon Terminal User Interface Framework
