@@ -1,0 +1,8 @@
+out/
+*.dll
+*.lib
+*.exp
+*.obj
+*.vcp
+*.o
+*.so
