@@ -1,6 +1,6 @@
 #ifdef WIN32
 
-#include <os/win32/crocw32.h>
+#include <os/win32/crocscrn.h>
 
 HANDLE _crocon_stdout = INVALID_HANDLE_VALUE;
 

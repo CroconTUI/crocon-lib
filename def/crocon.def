@@ -1,5 +1,4 @@
 LIBRARY				"Crocon"
-DESCRIPTION			"Crocon Terminal UI Framework"
 
 EXPORTS 
 	crocon_initscr

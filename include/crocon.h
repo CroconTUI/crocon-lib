@@ -1,6 +1,10 @@
 #ifndef CROCON_LIB
 #define CROCON_LIB
 
+#ifdef WIN32
+	#include <os/win32/crocscrn.h>
+#endif
+
 typedef struct {
 	int major;
 	int minor;
