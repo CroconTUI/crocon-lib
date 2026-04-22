@@ -14,8 +14,8 @@ OBJ_DIR 		= $(CROCON_ROOT)\..\out\library\obj
 C_FLAGS			= -MT -W3 -GX -Zi -YX -Od
 
 !ifdef DEBUG
-	C_FLAGS 	= -Z7 -DDEBUG
-	LD_FLAGS	= -debug -pdb:none
+C_FLAGS 		= -Z7 -DDEBUG
+LD_FLAGS		= -debug -pdb:none
 !endif
 
 
