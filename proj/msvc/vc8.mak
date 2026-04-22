@@ -34,21 +34,22 @@ OBJECTS 		= $(OBJ_DIR)\crocw32.obj \
 				  $(OBJ_DIR)\crocscrn.obj \
 				  $(OBJ_DIR)\crocon.obj
 
-all: $(BIN_DIR)\$(PROJECT).dll
+all: prepare $(BIN_DIR)\$(PROJECT).dll
 
 $(BIN_DIR)\$(PROJECT).dll: $(OBJECTS)
 	@if not exist $(BIN_DIR) mkdir $(BIN_DIR)
 	$(LINKER) $(LD_FLAGS) /OUT:$@ $**
 
 {$(SRC_DIR)}.c{$(OBJ_DIR)}.obj:
-	@if not exist $(CROCON_ROOT)\out mkdir $(CROCON_ROOT)\out
-	@if not exist $(OBJ_DIR) mkdir $(OBJ_DIR)
 	$(CC) $(CC_FLAGS) -c $< -Fo$@
 
 {$(SRC_DIR)\os\win32}.c{$(OBJ_DIR)}.obj:
-	@if not exist $(CROCON_ROOT)\out mkdir $(CROCON_ROOT)\out
-	@if not exist $(OBJ_DIR) mkdir $(OBJ_DIR)
 	$(CC) $(CC_FLAGS) -c $< -Fo$@
+
+prepare:
+	@if not exist $(CROCON_ROOT)\..\out mkdir $(CROCON_ROOT)\..\out
+	@if not exist $(CROCON_ROOT)\..\out\library mkdir $(CROCON_ROOT)\..\out\library
+	@if not exist $(OBJ_DIR) mkdir $(OBJ_DIR)
 
 clean:
 	-del $(OBJ_DIR)\*.obj
