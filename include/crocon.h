@@ -5,7 +5,7 @@
 	#include <os/win32/crocscrn.h>
 #endif
 
-typedef struct {
+typedef struct _crocon_version {
 	int major;
 	int minor;
 	int patch;
