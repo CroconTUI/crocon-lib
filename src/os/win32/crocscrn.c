@@ -10,12 +10,6 @@ int _crocon_initscr() {
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	int result;
 
-	if(!(result = FreeConsole()))
-		return false;
-
-	if(!(result = AllocConsole()))
-		return false;
-
 	_crocon_stdout = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	hStdOut = CreateConsoleScreenBuffer(
@@ -27,9 +21,7 @@ int _crocon_initscr() {
 	if(hStdOut == INVALID_HANDLE_VALUE)
 		hStdOut = _crocon_stdout;
 
-	GetConsoleScreenBufferInfo(hStdOut, &csbi);
-
-	_crocon_fillchar(' ', 0, 0, csbi.dwSize.X, csbi.dwSize.Y);
+	_crocon_clearscr();
 
 	return true;	
 }
@@ -44,13 +36,15 @@ int _crocon_clearscr() {
 	DWORD written;
 	COORD cursor;
 
+	_crocon_stdout = GetStdHandle(STD_OUTPUT_HANDLE);
+
 	cursor.X = 0;
 	cursor.Y = 0;
 
 	GetConsoleScreenBufferInfo(_crocon_stdout, &csbi);
 	FillConsoleOutputCharacter(
 		_crocon_stdout, ' ', 
-		(DWORD)(csbi.dwSize.X * csbi.dwSize.Y), cursor, &written
+		csbi.dwSize.X * csbi.dwSize.Y, cursor, &written
 	);
 	
 	return 0;	
@@ -58,17 +52,18 @@ int _crocon_clearscr() {
 
 int _crocon_fillchar(
 	const char c, 
-	unsigned int x, unsigned int y,
+	unsigned int orig_x, unsigned int orig_y,
 	unsigned int width, unsigned int height
 ) {
 	COORD cursor;
 	DWORD written;
-
+	unsigned int x = orig_x;
+	unsigned int y = orig_y;
 	cursor.X = x;
-	cursor.Y = y;
 
-	for(y; y < y + height; y++)	{
-		FillConsoleOutputCharacter(_crocon_stdout, c, (DWORD)width, cursor, &written);
+	for(y; y < (orig_y + height); y++)	{
+		cursor.Y = y;
+		FillConsoleOutputCharacter(_crocon_stdout, c, width, cursor, &written);
 	}
 
 	return 0;
