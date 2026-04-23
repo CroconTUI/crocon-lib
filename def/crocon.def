@@ -8,3 +8,4 @@ EXPORTS
 	crocon_fillchar
 	crocon_cprintf
 	crocon_mvcprintf
+	crocon_getch

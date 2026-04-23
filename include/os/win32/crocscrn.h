@@ -17,5 +17,6 @@ extern int _crocon_mvcprintf(
 	unsigned int x, unsigned int y, 
 	rgbi4_t fg_color, const char* str
 );
+extern int _crocon_getch();
 
 #endif

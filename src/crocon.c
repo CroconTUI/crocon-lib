@@ -39,3 +39,7 @@ int crocon_mvcprintf(
 	return _crocon_mvcprintf(x, y, fg_color, str);
 }
 
+int crocon_getch() {
+	return _crocon_getch();
+}
+

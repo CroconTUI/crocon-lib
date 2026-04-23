@@ -1,6 +1,7 @@
 #ifdef WIN32
 
 #include <os/win32/crocscrn.h>
+#include <stdio.h>
 
 HANDLE _crocon_stdout = INVALID_HANDLE_VALUE;
 
@@ -109,6 +110,10 @@ int _crocon_mvcprintf(
 	SetConsoleTextAttribute(_crocon_stdout, 0);
 
 	return 0;
+}
+
+int _crocon_getch() {
+	return getchar();
 }
 
 #endif

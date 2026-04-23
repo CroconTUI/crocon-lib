@@ -30,4 +30,6 @@ int crocon_mvcprintf(
 	rgbi4_t fg_color, const char* str
 );
 
+int crocon_getch();
+
 #endif
