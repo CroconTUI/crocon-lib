@@ -6,3 +6,5 @@ EXPORTS
 	crocon_getver
 	crocon_clearscr
 	crocon_fillchar
+	crocon_cprintf
+	crocon_mvcprintf

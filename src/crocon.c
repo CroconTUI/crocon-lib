@@ -28,4 +28,14 @@ int crocon_fillchar(
 	return _crocon_fillchar(c, x, y, width, height);	
 }
 
+int crocon_cprintf(rgbi4_t fg_color, const char* str) {
+	return _crocon_cprintf(fg_color, str);
+}
+
+int crocon_mvcprintf(
+	unsigned int x, unsigned int y, 
+	rgbi4_t fg_color, const char* str
+) {
+	return _crocon_mvcprintf(x, y, fg_color, str);
+}
 

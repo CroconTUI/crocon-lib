@@ -55,6 +55,7 @@ int _crocon_fillchar(
 	unsigned int orig_x, unsigned int orig_y,
 	unsigned int width, unsigned int height
 ) {
+
 	COORD cursor;
 	DWORD written;
 	unsigned int x = orig_x;
@@ -65,6 +66,47 @@ int _crocon_fillchar(
 		cursor.Y = y;
 		FillConsoleOutputCharacter(_crocon_stdout, c, width, cursor, &written);
 	}
+
+	return 0;
+}
+
+int _crocon_cprintf(rgbi4_t fg_color, const char* str) {
+
+	DWORD result;
+	WORD color;
+
+	color = (WORD)_crocon_pickcolor(COLOR_BLACK, fg_color);
+
+	SetConsoleTextAttribute(_crocon_stdout, color);
+		
+	WriteConsole(_crocon_stdout, str, strlen(str), &result, NULL);
+
+	SetConsoleTextAttribute(_crocon_stdout, 0);
+
+	return 0;
+}
+
+int _crocon_mvcprintf(
+	unsigned int x, unsigned int y, 
+	rgbi4_t fg_color, const char* str
+) {
+
+	DWORD result;
+	WORD color;
+	COORD cursor;
+
+	cursor.X = x;
+	cursor.Y = y;
+
+	SetConsoleCursorPosition(_crocon_stdout, cursor);
+
+	color = (WORD)_crocon_pickcolor(COLOR_BLACK, fg_color);
+
+	SetConsoleTextAttribute(_crocon_stdout, color);
+		
+	WriteConsole(_crocon_stdout, str, strlen(str), &result, NULL);
+
+	SetConsoleTextAttribute(_crocon_stdout, 0);
 
 	return 0;
 }
