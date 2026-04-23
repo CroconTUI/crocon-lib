@@ -27,14 +27,51 @@ int _crocon_initscr() {
 	if(hStdOut == INVALID_HANDLE_VALUE)
 		hStdOut = _crocon_stdout;
 
+	GetConsoleScreenBufferInfo(hStdOut, &csbi);
+
+	_crocon_fillchar(' ', 0, 0, csbi.dwSize.X, csbi.dwSize.Y);
+
 	return true;	
 }
 
-int _crocon_settitle(const char* title) {
-	
+int _crocon_settitle(const char* title) {	
 	int result = SetConsoleTitle(title);
-
 	return result;
+}
+
+int _crocon_clearscr() {
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	DWORD written;
+	COORD cursor;
+
+	cursor.X = 0;
+	cursor.Y = 0;
+
+	GetConsoleScreenBufferInfo(_crocon_stdout, &csbi);
+	FillConsoleOutputCharacter(
+		_crocon_stdout, ' ', 
+		(DWORD)(csbi.dwSize.X * csbi.dwSize.Y), cursor, &written
+	);
+	
+	return 0;	
+}
+
+int _crocon_fillchar(
+	const char c, 
+	unsigned int x, unsigned int y,
+	unsigned int width, unsigned int height
+) {
+	COORD cursor;
+	DWORD written;
+
+	cursor.X = x;
+	cursor.Y = y;
+
+	for(y; y < y + height; y++)	{
+		FillConsoleOutputCharacter(_crocon_stdout, c, (DWORD)width, cursor, &written);
+	}
+
+	return 0;
 }
 
 #endif

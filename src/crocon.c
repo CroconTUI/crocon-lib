@@ -16,4 +16,16 @@ int crocon_getver(CROCVERSION* version) {
 	return true;
 }
 
+int crocon_clearscr() {
+	return _crocon_clearscr();
+}	
+
+int crocon_fillchar(
+	const char c, 
+	unsigned int x, unsigned int y,
+	unsigned int width, unsigned int height
+) {
+	return _crocon_fillchar(c, x, y, width, height);	
+}
+
 
