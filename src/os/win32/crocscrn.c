@@ -31,31 +31,16 @@ int _crocon_settitle(const char* title) {
 }
 
 int _crocon_clearscr() {
-	CONSOLE_SCREEN_BUFFER_INFO csbi;
-	DWORD written;
-	COORD cursor;
 
-	_crocon_stdout = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	cursor.X = 0;
-	cursor.Y = 0;
-
-	SetConsoleTextAttribute(_crocon_stdout, 0);
-
-	GetConsoleScreenBufferInfo(_crocon_stdout, &csbi);
-
-	FillConsoleOutputCharacter(
-		_crocon_stdout, ' ', 
-		csbi.dwSize.X * csbi.dwSize.Y, cursor, &written
-	);
+	_crocon_fillscr(COLOR_BLACK, COLOR_GRAY, ' ');
 	
 	return 0;	
 }
 
 int _crocon_fillchar(
-	const char c, 
 	unsigned int orig_x, unsigned int orig_y,
-	unsigned int width, unsigned int height
+	unsigned int width, unsigned int height,
+	const char c 
 ) {
 
 	COORD cursor;
@@ -64,7 +49,7 @@ int _crocon_fillchar(
 	unsigned int y = orig_y;
 	cursor.X = x;
 
-	for(y; y < (orig_y + height); y++)	{
+	for(y; y <= (orig_y + height); y++)	{
 		cursor.Y = y;
 		FillConsoleOutputCharacter(_crocon_stdout, c, width, cursor, &written);
 	}
@@ -72,15 +57,72 @@ int _crocon_fillchar(
 	return 0;
 }
 
+int _crocon_fillcolor(
+	unsigned int orig_x, unsigned orig_y,
+	unsigned int width, unsigned int height,
+	rgbi4_t bg_color, rgbi4_t fg_color
+) {
+	COORD cursor;
+	DWORD written;
+	WORD color;
+	unsigned int x = orig_x;
+	unsigned int y = orig_y;
+
+	cursor.X = x;
+
+	color = (WORD)_crocon_pickcolor(bg_color, fg_color);
+
+	for(y; y <= (orig_y + height); y++)	{
+		cursor.Y = y;
+		FillConsoleOutputAttribute(_crocon_stdout, color, width, cursor, &written);
+	}
+
+	return 0;
+}
+
+int _crocon_fillscr(
+	rgbi4_t bg_color, rgbi4_t fg_color, const char c 
+) {
+	COORD cursor;
+	DWORD written;
+	int width;
+	WORD color;
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+
+	width = csbi.dwSize.X * csbi.dwSize.Y;
+	
+	cursor.X = 0;
+	cursor.Y = 0;
+
+	color = (WORD)_crocon_pickcolor(bg_color, fg_color);
+
+	FillConsoleOutputAttribute(
+		_crocon_stdout, color, width, cursor, &written
+	);
+
+	FillConsoleOutputCharacter(
+		_crocon_stdout, c, width, cursor, &written
+	);
+
+	return 0;
+}
+
 int _crocon_cprintf(rgbi4_t fg_color, const char* str) {
 
 	DWORD result;
+	DWORD written;
 	WORD color;
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
 
 	color = (WORD)_crocon_pickcolor(COLOR_BLACK, fg_color);
-	SetConsoleTextAttribute(_crocon_stdout, color);
+
+	GetConsoleScreenBufferInfo(_crocon_stdout, &csbi);
+
 	WriteConsole(_crocon_stdout, str, strlen(str), &result, NULL);
-	SetConsoleTextAttribute(_crocon_stdout, 0);
+
+	FillConsoleOutputAttribute(
+		_crocon_stdout, color, strlen(str), csbi.dwCursorPosition, &written
+	);
 
 	return 0;
 }

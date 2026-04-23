@@ -2,6 +2,7 @@
 #define CROCON_LIB
 
 #include <widgets/screen.h>
+#include <utils/colors.h>
 
 #ifdef WIN32
 	#include <os/win32/crocscrn.h>
@@ -19,9 +20,19 @@ int crocon_getver(CROCVERSION* version);
 int crocon_clearscr();
 
 int crocon_fillchar(
-	const char c, 
 	unsigned int x, unsigned int y,
-	unsigned int width, unsigned int height
+	unsigned int width, unsigned int height,
+	const char c
+);
+
+int crocon_fillcolor(
+	unsigned int x, unsigned int y,
+	unsigned int width, unsigned int height,
+	rgbi4_t bg_color, rgbi4_t fg_color
+);
+
+int crocon_fillscr(
+	rgbi4_t bg_color, rgbi4_t fg_color, const char c 
 );
 
 int crocon_cprintf(rgbi4_t fg_color, const char* str);

@@ -26,14 +26,30 @@ int crocon_clearscr() {
 }	
 
 int crocon_fillchar(
-	const char c, 
 	unsigned int x, unsigned int y,
-	unsigned int width, unsigned int height
+	unsigned int width, unsigned int height,
+	const char c 
 ) {
-	return _crocon_fillchar(c, x, y, width, height);	
+	return _crocon_fillchar(x, y, width, height, c);	
+}
+
+int crocon_fillcolor(
+	unsigned int x,     unsigned int y,
+	unsigned int width, unsigned int height,
+	rgbi4_t bg_color, rgbi4_t fg_color
+) {
+	return _crocon_fillcolor(x, y, width, height, bg_color, fg_color);	
+}
+
+int crocon_fillscr(
+	rgbi4_t bg_color, rgbi4_t fg_color,
+	const char c
+) {
+	return _crocon_fillscr(bg_color, fg_color, c);	
 }
 
 int crocon_cprintf(rgbi4_t fg_color, const char* str) {
+	
 	return _crocon_cprintf(fg_color, str);
 }
 
@@ -42,7 +58,7 @@ int crocon_mvcprintf(
 	rgbi4_t fg_color, const char* str
 ) {
 	_crocon_move(x, y);
-	return _crocon_cprintf(x, y, fg_color, str);
+	return _crocon_cprintf(fg_color, str);
 }
 
 int crocon_move(unsigned int x, unsigned int y) {

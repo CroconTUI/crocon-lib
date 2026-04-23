@@ -14,6 +14,16 @@ extern int _crocon_fillchar(
 	unsigned int width, unsigned int height
 );
 
+extern int _crocon_fillcolor(
+	unsigned int orig_x, unsigned orig_y,
+	unsigned int width, unsigned int height,
+	rgbi4_t bg_color, rgbi4_t fg_color 
+);
+
+extern int _crocon_fillscr(
+	rgbi4_t bg_color, rgbi4_t fg_color, const char c 
+);
+
 extern int _crocon_cprintf(rgbi4_t fg_color, const char* str);
 
 extern int _crocon_move(unsigned int x, unsigned int y);
