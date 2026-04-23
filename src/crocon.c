@@ -2,7 +2,12 @@
 #include <crocpriv.h>
 
 int crocon_initscr() {
-	return _crocon_initscr();
+
+	_crocon_initscr();
+	_crocon_clearscr();
+	_crocon_move(0, 0);
+
+	return 0;
 }
 
 int crocon_settitle(const char* title) {
@@ -36,7 +41,12 @@ int crocon_mvcprintf(
 	unsigned int x, unsigned int y, 
 	rgbi4_t fg_color, const char* str
 ) {
-	return _crocon_mvcprintf(x, y, fg_color, str);
+	_crocon_move(x, y);
+	return _crocon_cprintf(x, y, fg_color, str);
+}
+
+int crocon_move(unsigned int x, unsigned int y) {
+	return _crocon_move(x, y);
 }
 
 int crocon_getch() {

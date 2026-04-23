@@ -22,8 +22,6 @@ int _crocon_initscr() {
 	if(hStdOut == INVALID_HANDLE_VALUE)
 		hStdOut = _crocon_stdout;
 
-	_crocon_clearscr();
-
 	return true;	
 }
 
@@ -42,7 +40,10 @@ int _crocon_clearscr() {
 	cursor.X = 0;
 	cursor.Y = 0;
 
+	SetConsoleTextAttribute(_crocon_stdout, 0);
+
 	GetConsoleScreenBufferInfo(_crocon_stdout, &csbi);
+
 	FillConsoleOutputCharacter(
 		_crocon_stdout, ' ', 
 		csbi.dwSize.X * csbi.dwSize.Y, cursor, &written
@@ -77,39 +78,23 @@ int _crocon_cprintf(rgbi4_t fg_color, const char* str) {
 	WORD color;
 
 	color = (WORD)_crocon_pickcolor(COLOR_BLACK, fg_color);
-
 	SetConsoleTextAttribute(_crocon_stdout, color);
-		
 	WriteConsole(_crocon_stdout, str, strlen(str), &result, NULL);
-
 	SetConsoleTextAttribute(_crocon_stdout, 0);
 
 	return 0;
 }
 
-int _crocon_mvcprintf(
-	unsigned int x, unsigned int y, 
-	rgbi4_t fg_color, const char* str
-) {
-
-	DWORD result;
-	WORD color;
+int _crocon_move(unsigned int x, unsigned int y) {
+	
 	COORD cursor;
-
+	
 	cursor.X = x;
 	cursor.Y = y;
-
+	
 	SetConsoleCursorPosition(_crocon_stdout, cursor);
-
-	color = (WORD)_crocon_pickcolor(COLOR_BLACK, fg_color);
-
-	SetConsoleTextAttribute(_crocon_stdout, color);
-		
-	WriteConsole(_crocon_stdout, str, strlen(str), &result, NULL);
-
-	SetConsoleTextAttribute(_crocon_stdout, 0);
-
-	return 0;
+	
+	return 0;	
 }
 
 int _crocon_getch() {

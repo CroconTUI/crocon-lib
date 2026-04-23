@@ -30,6 +30,8 @@ int crocon_mvcprintf(
 	rgbi4_t fg_color, const char* str
 );
 
+int crocon_move(unsigned int x, unsigned int y);
+
 int crocon_getch();
 
 #endif
