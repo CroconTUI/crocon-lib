@@ -26,7 +26,7 @@ int crocon_fillchar(
 );
 
 int crocon_fillcolor(
-	unsigned int x, unsigned int y,
+	unsigned int orig_x, unsigned orig_y,
 	unsigned int width, unsigned int height,
 	rgbi4_t bg_color, rgbi4_t fg_color
 );
@@ -36,9 +36,18 @@ int crocon_fillscr(
 );
 
 int crocon_cprintf(rgbi4_t fg_color, const char* str);
+int crocon_cprintf2(
+	rgbi4_t fg_color, int length, const char* str, ...
+);
+
 int crocon_mvcprintf(
 	unsigned int x, unsigned int y, 
 	rgbi4_t fg_color, const char* str
+);
+
+int crocon_mvcprintf2(
+	unsigned int x, unsigned int y, 
+	rgbi4_t fg_color, int length, const char* str, ...
 );
 
 int crocon_move(unsigned int x, unsigned int y);

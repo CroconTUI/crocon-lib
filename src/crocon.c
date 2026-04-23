@@ -49,8 +49,20 @@ int crocon_fillscr(
 }
 
 int crocon_cprintf(rgbi4_t fg_color, const char* str) {
-	
 	return _crocon_cprintf(fg_color, str);
+}
+
+int crocon_cprintf2(
+	rgbi4_t fg_color, int length, const char* str, ...
+) {
+	va_list args;
+	va_start(args, str);
+
+	_crocon_cprintf2(fg_color, length, str, args);
+
+	va_end(args);
+
+	return 0;
 }
 
 int crocon_mvcprintf(
@@ -59,6 +71,21 @@ int crocon_mvcprintf(
 ) {
 	_crocon_move(x, y);
 	return _crocon_cprintf(fg_color, str);
+}
+
+int crocon_mvcprintf2(
+	unsigned int x, unsigned int y, 
+	rgbi4_t fg_color, int length, const char* str, ...
+) {
+	va_list args;
+	va_start(args, str);
+
+ 	_crocon_move(x, y);
+	_crocon_cprintf2(fg_color, length, str, args);
+
+	va_end(args);
+
+	return 0;
 }
 
 int crocon_move(unsigned int x, unsigned int y) {

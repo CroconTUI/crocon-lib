@@ -120,7 +120,12 @@ unsigned short _crocon_pickcolor(rgbi4_t bg_color, rgbi4_t fg_color) {
 		case COLOR_WHITE:
 			result |= FOREGROUND_RED  | FOREGROUND_GREEN     | 
 			          FOREGROUND_BLUE | FOREGROUND_INTENSITY;
-			break;  
+			break;
+		
+		default: 
+			result |= FOREGROUND_RED  | FOREGROUND_GREEN     | 
+			          FOREGROUND_BLUE; 
+			break;
 	}
 	
 	return result;	
