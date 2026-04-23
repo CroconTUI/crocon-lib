@@ -2,6 +2,7 @@
 
 #include <os/win32/crocscrn.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 HANDLE _crocon_stdout = INVALID_HANDLE_VALUE;
 
