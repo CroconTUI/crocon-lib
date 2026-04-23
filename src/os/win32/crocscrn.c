@@ -121,7 +121,11 @@ int _crocon_cprintf(rgbi4_t fg_color, const char* str) {
 
 	WriteConsole(_crocon_stdout, str, strlen(str), &result, NULL);
 
+	if(fg_color == COLOR_GRAY)
+		return 0;
+
 	color = (WORD)_crocon_pickcolor(COLOR_BLACK, fg_color);
+	
 	FillConsoleOutputAttribute(
 		_crocon_stdout, color, strlen(str), csbi.dwCursorPosition, &written
 	);
@@ -133,7 +137,12 @@ int _crocon_cprintf2(rgbi4_t fg_color, int length, const char* fmt_str, va_list 
 	
 	char* str = malloc(length * sizeof(length));
 	
-	_vsnprintf(str, length, fmt_str, args);
+	#ifdef _MSC_VER >= 800
+		_vsnprintf_s(str, length, length, fmt_str, args);
+	#else
+		_vsnprintf(str, length, fmt_str, args);
+	#endif
+	
 	_crocon_cprintf(fg_color, str);
 
 	free(str);
