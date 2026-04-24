@@ -1,0 +1,71 @@
+#ifdef UNIX
+
+#include <os/unix/crocscrn.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int _crocon_initscr() {
+	
+	_crocon_stdout = stdout;
+
+	return true;	
+}
+
+int _crocon_settitle(const char* title) {	
+	return result;
+}
+
+int _crocon_clearscr() {
+
+	_crocon_fillscr(COLOR_BLACK, COLOR_GRAY, ' ');
+	
+	return 0;	
+}
+
+int _crocon_fillchar(
+	unsigned int orig_x, unsigned int orig_y,
+	unsigned int width, unsigned int height,
+	const char c 
+) {
+	return 0;
+}
+
+int _crocon_fillcolor(
+	unsigned int orig_x, unsigned int orig_y,
+	unsigned int width, unsigned int height,
+	rgbi4_t bg_color, rgbi4_t fg_color
+) {
+	return 0;
+}
+
+int _crocon_fillscr(
+	rgbi4_t bg_color, rgbi4_t fg_color, const char c 
+) {
+	return 0;
+}
+
+int _crocon_cprintf(rgbi4_t fg_color, const char* str) {
+	return 0;
+}
+
+int _crocon_cprintf2(rgbi4_t fg_color, int length, const char* fmt_str, va_list args) {
+	
+	char* str = malloc(length * sizeof(length));
+	
+	vsnprintf(str, length, fmt_str, args);
+	_crocon_cprintf(fg_color, str);
+
+	free(str);
+
+	return 0;
+}
+
+int _crocon_move(unsigned int x, unsigned int y) {
+	return 0;	
+}
+
+int _crocon_getch() {
+	return getchar();
+}
+
+#endif
