@@ -41,8 +41,7 @@ const char* _crocon_pickcolor(rgbi4_t bg_color, rgbi4_t fg_color) {
 			bg_result = "\x1B[45m";
 			break;
 		case COLOR_BRIGHT_MAGENTA:
-			bg_result = "\x1B[105
-m";
+			bg_result = "\x1B[105m";
 			break;
 
 		case COLOR_YELLOW:

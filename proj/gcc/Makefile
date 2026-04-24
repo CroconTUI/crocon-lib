@@ -8,17 +8,22 @@ SRC_DIR         = $(CROCON_LIB_ROOT)/src
 DEF_DIR         = $(CROCON_LIB_ROOT)/def
 RES_DIR         = $(CROCON_LIB_ROOT)/res
 
+SRC_DIRS        = $(SRC_DIR) \
+                  $(SRC_DIR)/os/unix \
+                  $(SRC_DIR)/utils \
+                  $(SRC_DIR)/widgets
+
 BIN_DIR         = $(CROCON_LIB_ROOT)/../out/library/bin
 OBJ_DIR         = $(CROCON_LIB_ROOT)/../out/library/obj
 
-C_FLAGS         = -Wall -Wextra -O2
+C_FLAGS         = -O2 -fPIC 
+
+SOURCES         = $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.c))
 
 OBJECTS         = $(OBJ_DIR)/crocunix.o \
                   $(OBJ_DIR)/crocscrn.o \
                   $(OBJ_DIR)/crocclrs.o \
                   $(OBJ_DIR)/crocon.o
-
-SOURCES         = $(patsubst $(OBJ_DIR)/%.o, $(SRC_DIR)/%.c, $(OBJECTS))
 
 all: prepare $(BIN_DIR)/lib$(PROJECT).so $(BIN_DIR)/lib$(PROJECT).a
 
@@ -27,16 +32,16 @@ prepare:
 	mkdir -p $(BIN_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
+	$(CC) $(C_FLAGS) -I$(INC_DIR) -c $< -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/os/unix/%.c
-	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
+	$(CC) $(C_FLAGS) -I$(INC_DIR) -c $< -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/utils/%.c
-	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
+	$(CC) $(C_FLAGS) -I$(INC_DIR) -c $< -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/widgets/%.c
-	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
+	$(CC) $(C_FLAGS) -I$(INC_DIR) -c $< -o $@
 
 
 $(BIN_DIR)/lib$(PROJECT).so: $(OBJECTS)
