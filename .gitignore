@@ -1,4 +1,6 @@
 out/
+*.h~
+*.c~
 *.dll
 *.lib
 *.exp
