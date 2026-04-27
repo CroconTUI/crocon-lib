@@ -2,7 +2,6 @@ PROJECT         = crocon
 
 CROCON_LIB_ROOT = ../..
 
-PREFIX          = /usr/local
 INC_DIR         = $(CROCON_LIB_ROOT)/include
 SRC_DIR         = $(CROCON_LIB_ROOT)/src
 DEF_DIR         = $(CROCON_LIB_ROOT)/def
@@ -16,7 +15,7 @@ SRC_DIRS        = $(SRC_DIR) \
 BIN_DIR         = $(CROCON_LIB_ROOT)/../out/library/bin
 OBJ_DIR         = $(CROCON_LIB_ROOT)/../out/library/obj
 
-C_FLAGS         = -O2 -fPIC 
+C_FLAGS         = -O2 -fPIC -DUNIX -DHAVE_VPRINTF
 
 SOURCES         = $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.c))
 
@@ -53,8 +52,8 @@ $(BIN_DIR)/lib$(PROJECT).a: $(OBJECTS)
 
 install: all
 	mkdir -p $(PREFIX)/lib
-	cp $(LIB_DIR)/lib$(PROJECT).so $(PREFIX)/lib/
-	cp $(LIB_DIR)/lib$(PROJECT).a $(PREFIX)/lib/
+	cp $(BIN_DIR)/lib$(PROJECT).so $(PREFIX)
+	cp $(BIN_DIR)/lib$(PROJECT).a $(PREFIX)
 
 	mkdir -p $(PREFIX)/include/$(PROJECT)
 	cp $(INC_DIR)/*.h $(PREFIX)/include/$(PROJECT)/

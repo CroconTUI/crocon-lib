@@ -49,7 +49,7 @@ int _crocon_cprintf(rgbi4_t fg_color, const char* str) {
 	const char* color;
 	const char* def_color;
 
-	color     = _crocon_pickcolor(COLOR_TRANSPARENT, fg_color);
+	color     = _crocon_pickcolor(COLOR_BLACK, fg_color);
 
 	printf("%s%s%s", color, str, "\x1B[m");
 	

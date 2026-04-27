@@ -121,12 +121,8 @@ const char* _crocon_pickcolor(rgbi4_t bg_color, rgbi4_t fg_color) {
 			fg_result = "\x1B[97m";
 			break;
 		
-		case COLOR_GRAY:
-			fg_result = "\x1B[90m";
-			break;
-
 		default: 
-			fg_result = "";
+			fg_result = "\x1B[90m";
 			break;
 	}
 	
