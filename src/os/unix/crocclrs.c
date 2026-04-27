@@ -5,7 +5,7 @@ const char* _crocon_pickcolor(rgbi4_t bg_color, rgbi4_t fg_color) {
 
 	const char* bg_result;
 	const char* fg_result;
-	char result[12];
+	char result[18];
 
 	switch(bg_color) {
 
@@ -130,7 +130,8 @@ const char* _crocon_pickcolor(rgbi4_t bg_color, rgbi4_t fg_color) {
 			break;
 	}
 	
-	sprintf(result, "%s%s", bg_result, fg_result);
+	strcpy(result, bg_result);
+	strcat(result, fg_result);
 	
-	return result;	
+	return result;
 }
