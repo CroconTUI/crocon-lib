@@ -6,6 +6,6 @@
 #include <stdarg.h>
 #include <string.h>
 
-FILE* _crocon_stdout;
+extern FILE* _crocon_stdout;
 
 #endif

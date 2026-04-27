@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+FILE* _crocon_stdout;
+
 int _crocon_initscr() {
 	
 	_crocon_stdout = stdout;
