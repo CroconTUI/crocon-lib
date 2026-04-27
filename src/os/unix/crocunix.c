@@ -1,6 +1,6 @@
 #ifdef UNIX
 
-__attribute__((constructor))
+__attribute__((constructor))
 void libcrocon_start() {
 
 }

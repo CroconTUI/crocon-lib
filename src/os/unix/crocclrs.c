@@ -6,9 +6,8 @@ const char* _crocon_pickcolor(rgbi4_t bg_color, rgbi4_t fg_color) {
 	const char* bg_result;
 	const char* fg_result;
 	char result[18];
-
+	
 	switch(bg_color) {
-
 		case COLOR_RED:
 			bg_result = "\x1B[41m";
 			break;
@@ -17,7 +16,7 @@ const char* _crocon_pickcolor(rgbi4_t bg_color, rgbi4_t fg_color) {
 			break;
 
 		case COLOR_GREEN:
-			bg_result = "\x1B[42m";
+			bg_result = "\x1B[32m";
 			break;
 		case COLOR_BRIGHT_GREEN:
 			bg_result = "\x1B[102m";
@@ -107,8 +106,7 @@ const char* _crocon_pickcolor(rgbi4_t bg_color, rgbi4_t fg_color) {
 			break;
 
 		case COLOR_YELLOW:
-			fg_result = "\x1B[33m"
-;
+			fg_result = "\x1B[33m";
 			break;
 		case COLOR_BRIGHT_YELLOW:
 			fg_result = "\x1B[93m";
