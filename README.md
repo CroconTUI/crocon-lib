@@ -46,7 +46,7 @@ gcc --version    # gcc
 
 **On Windows**, run the `make.bat` script from the `build` directory in the project root directory.
 
-_NMAKE is present in the VS Developer Command Prompt._
+_NMAKE is present in the VS Developer Command Prompt. In MSVC 2.0, launching a separate command prompt is not required._
 
 **On Linux:**
 ```sh
