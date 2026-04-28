@@ -36,8 +36,8 @@ Crocon Terminal User Interface Framework. Developed with maximum compatibillity 
 >
 > To check the current versions of components, enter the commands:
 > ```sh
-uname -a         # linux
-ldd --version    # glibc
-bash --version   # bash
-gcc --version    # gcc
-```
+> uname -a         # linux
+> ldd --version    # glibc
+> bash --version   # bash
+> gcc --version    # gcc
+> ```
