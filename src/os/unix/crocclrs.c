@@ -5,7 +5,7 @@ const char* _crocon_pickcolor(rgbi4_t bg_color, rgbi4_t fg_color) {
 
 	const char* bg_result;
 	const char* fg_result;
-	char result[18];
+	char* result = malloc(10 * sizeof(char));
 	
 	switch(bg_color) {
 		case COLOR_RED:

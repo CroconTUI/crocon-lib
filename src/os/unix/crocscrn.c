@@ -52,7 +52,7 @@ int _crocon_cprintf(rgbi4_t fg_color, const char* str) {
 	const char* def_color;
 	char* cstr;
 	
-	cstr = malloc((strlen(str) + 16) * sizeof(char));
+	cstr = malloc((strlen(str) + 22) * sizeof(char));
 
 	color     = _crocon_pickcolor(COLOR_TRANSPARENT, fg_color);
 	def_color = "\x1B[m";
@@ -61,8 +61,9 @@ int _crocon_cprintf(rgbi4_t fg_color, const char* str) {
 	strcat(cstr, str);
 	strcat(cstr, def_color);
 	
-	printf(cstr);
+	printf("%s", cstr);
 	
+	free(color);
 	free(cstr);
 	
 	return 0;
