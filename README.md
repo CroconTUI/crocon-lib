@@ -30,22 +30,22 @@ gcc --version    # gcc
 > Based on this requirement, the following GNU/Linux distributions released no earlier than 1999-2000 are suitable:
 
 > * **Debian 2.0** (July 1998) \
->   target: GCC 3.2 and below, ELF \
+>   target: GCC 3.2 and below, ELF
 >   host: Linux 2.0.34, glibc 1.9.9, GCC 2.7.2.3 (unsupported)
 > * **Mandrake Linux 7.0** (January 2000) \
->   target: GCC 3.2 and below, ELF \
+>   target: GCC 3.2 and below, ELF
 >   host: Linux 2.2.14, GCC 2.95.2, glibc 2.1.2, bash 2.03
 > * **SUSE Linux 8.1** (September 2002) \
->   target: GCC 4.2.4 and below, ELF \
+>   target: GCC 4.2.4 and below, ELF
 >   host: Linux 2.4.19, GCC 3.2, glibc 2.2.5, bash 2.05
 > * **Ubuntu 8.04** (April 2008) \
->   target: GCC 4.9.2 and below, ELF \
+>   target: GCC 4.9.2 and below, ELF
 >   host: Linux 2.6.24, glibc 2.7, bash 3.2.39, GCC 4.2.4
 > * **Debian 8.11.0** (April 2015) \
->   target: GCC 4.9.2 and below, ELF \
+>   target: GCC 4.9.2 and below, ELF
 >   host: Linux 3.16.0, glibc 2.19, bash 4.3.30, GCC 4.9.2
 > * **Debian 13** \
->   target: GCC 4.2.4 - 14.2.0, ELF \
+>   target: GCC 4.2.4 - 14.2.0, ELF
 >   August 2025: Linux 6.12.74, glibc 2.41, bash 5.2.37, GCC 14.2.0
 
 ### How to Build
