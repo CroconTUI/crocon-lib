@@ -17,7 +17,15 @@ Crocon Terminal User Interface Framework. Developed with maximum compatibillity 
     * glibc >= 2.1.2
     * GCC >= 2.95.2
     * bash >= 2.03
-    
+
+To check the current versions of components, enter the commands:
+```sh
+uname -a         # linux
+ldd --version    # glibc
+bash --version   # bash
+gcc --version    # gcc
+```
+
 > [!NOTE]
 > Based on this requirement, the following GNU/Linux distributions released no earlier than 1999-2000 are suitable:
 >
@@ -33,11 +41,3 @@ Crocon Terminal User Interface Framework. Developed with maximum compatibillity 
 >   _April 2015: Linux 3.16.0, glibc 2.19, bash 4.3.30, GCC 4.9.2_
 > * **Debian 13** \
 >   _August 2025: Linux 6.12.74, glibc 2.41, bash 5.2.37, GCC 14.2.0_
->
-> To check the current versions of components, enter the commands:
-> ```sh
-> uname -a         # linux
-> ldd --version    # glibc
-> bash --version   # bash
-> gcc --version    # gcc
-> ```
