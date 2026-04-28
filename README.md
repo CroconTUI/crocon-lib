@@ -34,16 +34,16 @@ gcc --version    # gcc
 >   * **Mandrake Linux 7.0** (January 2000) \
 >     Linux 2.2.14, GCC 2.95.2, glibc 2.1.2, bash 2.03
 >   * **SUSE Linux 8.1** (September 2002) \
->     host: Linux 2.4.19, GCC 3.2, glibc 2.2.5, bash 2.05
+>     Linux 2.4.19, GCC 3.2, glibc 2.2.5, bash 2.05
 > * **glibc 2.2.5, ELF**
 >   * **Ubuntu 8.04** (April 2008) \
 >     Linux 2.6.24, glibc 2.7, bash 3.2.39, GCC 4.2.4
 > * **glibc 2.5, ELF**
 >   * **Debian 8.11.0** (April 2015) \
->     host: Linux 3.16.0, glibc 2.19, bash 4.3.30, GCC 4.9.2
+>     Linux 3.16.0, glibc 2.19, bash 4.3.30, GCC 4.9.2
 > * **glibc 2.34, ELF**
 >   * **Debian 13** (August 2025) \
->     host: Linux 6.12.74, glibc 2.41, bash 5.2.37, GCC 14.2.0
+>     Linux 6.12.74, glibc 2.41, bash 5.2.37, GCC 14.2.0
 
 ### How to Build
 
