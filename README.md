@@ -41,3 +41,13 @@ gcc --version    # gcc
 >   _April 2015: Linux 3.16.0, glibc 2.19, bash 4.3.30, GCC 4.9.2_
 > * **Debian 13** \
 >   _August 2025: Linux 6.12.74, glibc 2.41, bash 5.2.37, GCC 14.2.0_
+
+### How to Build
+
+On Windows, run the `make.bat` script from the `build` directory in the project root directory.
+
+On Linux:
+```sh
+chmod +x ./build/make.sh
+./make.sh --prefix /lib     # for install library type '/lib' or '/lib64'
+```
