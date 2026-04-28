@@ -44,9 +44,11 @@ gcc --version    # gcc
 
 ### How to Build
 
-On Windows, run the `make.bat` script from the `build` directory in the project root directory.
+**On Windows**, run the `make.bat` script from the `build` directory in the project root directory.
 
-On Linux:
+_NMAKE is present in the VS Developer Command Prompt._
+
+**On Linux:**
 ```sh
 chmod +x ./build/make.sh
 ./make.sh --prefix /lib     # for install library type '/lib' or '/lib64'
