@@ -27,11 +27,11 @@ gcc --version    # gcc
 ```
 
 > [!NOTE]
-> Based on this requirement, the following GNU/Linux distributions released no earlier than 1999-2000 are suitable:
+> Based on this requirement, the following GNU/Linux distributions released no earlier than 1998-2000 are suitable:
 >
-> * **Debian 2.0** (July 1998) \
+> * **Debian 2.0** (July 1998, build unsupported) \
 >   target: GCC 3.2 and below, ELF \
->   host: Linux 2.0.34, glibc 1.9.9, GCC 2.7.2.3 (build unsupported)
+>   host: Linux 2.0.34, glibc 1.9.9, GCC 2.7.2.3
 > * **Mandrake Linux 7.0** (January 2000) \
 >   target: GCC 3.2 and below, ELF \
 >   host: Linux 2.2.14, GCC 2.95.2, glibc 2.1.2, bash 2.03
