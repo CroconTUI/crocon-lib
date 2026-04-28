@@ -31,7 +31,7 @@ gcc --version    # gcc
 >
 > * **Debian 2.0** (July 1998) \
 >   target: GCC 3.2 and below, ELF \
->   host: Linux 2.0.34, glibc 1.9.9, GCC 2.7.2.3 (unsupported)
+>   host: Linux 2.0.34, glibc 1.9.9, GCC 2.7.2.3 (build unsupported)
 > * **Mandrake Linux 7.0** (January 2000) \
 >   target: GCC 3.2 and below, ELF \
 >   host: Linux 2.2.14, GCC 2.95.2, glibc 2.1.2, bash 2.03
