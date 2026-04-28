@@ -35,7 +35,7 @@ gcc --version    # gcc
 >     Linux 2.2.14, GCC 2.95.2, glibc 2.1.2, bash 2.03
 >   * **SUSE Linux 8.1** (September 2002) \
 >     Linux 2.4.19, GCC 3.2, glibc 2.2.5, bash 2.05
-> * **glibc 2.0 (32-bit) & 2.2.5 (64-bit), ELF**
+> * **glibc 2.0, ELF32 / glibc 2.2.5, ELF64**
 >   * **Ubuntu 8.04** (April 2008) \
 >     Linux 2.6.24, glibc 2.7, bash 3.2.39, GCC 4.2.4
 > * **glibc 2.5, ELF**
