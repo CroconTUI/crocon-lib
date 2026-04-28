@@ -1,5 +1,6 @@
 #include <utils/colors.h>
 #include <os/unix/crocclrs.h>
+#include <stdlib.h>
 
 const char* _crocon_pickcolor(rgbi4_t bg_color, rgbi4_t fg_color) {
 
