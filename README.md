@@ -44,7 +44,7 @@ gcc --version    # gcc
 > * **Debian 8.11.0** (April 2015) \
 >   target: GCC 4.9.2 and below, ELF \
 >   host: Linux 3.16.0, glibc 2.19, bash 4.3.30, GCC 4.9.2
-> * **Debian 13** \
+> * **Debian 13** (August 2025) \
 >   target: GCC 4.2.4 - 14.2.0, ELF \
 >   host: Linux 6.12.74, glibc 2.41, bash 5.2.37, GCC 14.2.0
 
