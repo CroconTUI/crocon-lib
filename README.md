@@ -6,8 +6,8 @@ Crocon Terminal User Interface Framework. Developed with maximum compatibillity 
 ### For use in programs
 
 * **Windows NT 3.1 and higher**
-* **GNU/Linux with a.out or ELF support**
-    * glibc >= 2.1.2
+* **GNU/Linux with ELF support**
+    * glibc >= 1.9.9
     * `xterm` or `xterm-256color` for full colors support
 
 ### For building and linking static and dynamic libraries
