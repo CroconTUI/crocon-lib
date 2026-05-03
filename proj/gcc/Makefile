@@ -3,6 +3,7 @@ PROJECT         =  crocon
 CROCON_LIB_ROOT =  ../..
 
 CROCON_DEBUG    =? false
+CROCON_LEGACY   =? false
 
 INC_DIR         =  $(CROCON_LIB_ROOT)/include
 SRC_DIR         =  $(CROCON_LIB_ROOT)/src
@@ -17,10 +18,22 @@ SRC_DIRS        =  $(SRC_DIR) \
 BIN_DIR         =  $(CROCON_LIB_ROOT)/../out/library/bin
 OBJ_DIR         =  $(CROCON_LIB_ROOT)/../out/library/obj
 
+ifeq ($(CROCON_LEGACY),true)
+
 ifeq ($(CROCON_DEBUG),true)
-C_FLAGS         =  -O2 -fPIC -DUNIX -DHAVE_VPRINTF -g3
+C_FLAGS         =  -O0 -fPIC -DUNIX -DUNIX_LEGACY -DHAVE_VPRINTF -g3 -fno-omit-frame-pointer -fno-optimize-sibling-calls 
+else
+C_FLAGS         =  -O2 -fPIC -DUNIX -DUNIX_LEGACY -DHAVE_VPRINTF
+endif
+
+else
+
+ifeq ($(CROCON_DEBUG),true)
+C_FLAGS         =  -O0 -fPIC -DUNIX -DHAVE_VPRINTF -g3 -fno-omit-frame-pointer -fno-optimize-sibling-calls 
 else
 C_FLAGS         =  -O2 -fPIC -DUNIX -DHAVE_VPRINTF
+endif
+
 endif
 
 SOURCES         =  $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.c))
