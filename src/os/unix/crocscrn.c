@@ -29,6 +29,19 @@ int _crocon_fillchar(
 	unsigned int width, unsigned int height,
 	const char c 
 ) {
+	unsigned int x = orig_x;
+	unsigned int y = orig_y;
+
+	for(y; y < (orig_y + height); y++) {
+		printf("\033[%d;%dH", y, orig_x);
+		for(x; x < (orig_x + width); x++) {
+			putchar(c);
+		}
+		fflush(stdout);
+		x = orig_x;
+	}
+
+
 	return 0;
 }
 
@@ -37,6 +50,29 @@ int _crocon_fillcolor(
 	unsigned int width, unsigned int height,
 	rgbi4_t bg_color, rgbi4_t fg_color
 ) {
+	const char* color;
+	const char* def_color;
+
+	unsigned int x = orig_x;
+	unsigned int y = orig_y;
+
+	color     = _crocon_pickcolor(COLOR_TRANSPARENT, fg_color);
+	def_color = "\x1B[m";
+	
+	printf(color);
+	
+	for(y; y < (orig_y + height); y++) {
+		printf("\033[%d;%dH", y, orig_x);
+		for(x; x < (orig_x + width); x++) {
+			putchar(' ');
+		}
+		fflush(stdout);
+		x = orig_x;
+	}
+
+	printf(def_color);
+	
+	fflush(stdout);
 	return 0;
 }
 
