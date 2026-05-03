@@ -29,8 +29,8 @@ gcc --version    # gcc
 > [!NOTE]
 > Based on this requirement, the following GNU/Linux distributions released no earlier than 1998-2000 for the target glibc version may be suitable:
 > * **glibc 2.0, ELF**
->   * **Debian 2.0** (July 1998, build unsupported) \
->     Linux 2.0.34, GCC 2.7.2.3, glibc 1.9.9, bash 2.01
+>   * **Debian 2.0** (July 1998) \
+>     Linux 2.0.34, GCC 2.7.2.3, glibc 2.0.7, bash 2.01
 >   * **Mandrake Linux 7.0** (January 2000) \
 >     Linux 2.2.14, GCC 2.95.2, glibc 2.1.2, bash 2.03
 >   * **SUSE Linux 8.1** (September 2002) \
