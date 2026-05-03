@@ -1,28 +1,34 @@
-PROJECT         = crocon
+PROJECT         =  crocon
 
-CROCON_LIB_ROOT = ../..
+CROCON_LIB_ROOT =  ../..
 
-INC_DIR         = $(CROCON_LIB_ROOT)/include
-SRC_DIR         = $(CROCON_LIB_ROOT)/src
-DEF_DIR         = $(CROCON_LIB_ROOT)/def
-RES_DIR         = $(CROCON_LIB_ROOT)/res
+CROCON_DEBUG    =? false
 
-SRC_DIRS        = $(SRC_DIR) \
-                  $(SRC_DIR)/os/unix \
-                  $(SRC_DIR)/utils \
-                  $(SRC_DIR)/widgets
+INC_DIR         =  $(CROCON_LIB_ROOT)/include
+SRC_DIR         =  $(CROCON_LIB_ROOT)/src
+DEF_DIR         =  $(CROCON_LIB_ROOT)/def
+RES_DIR         =  $(CROCON_LIB_ROOT)/res
 
-BIN_DIR         = $(CROCON_LIB_ROOT)/../out/library/bin
-OBJ_DIR         = $(CROCON_LIB_ROOT)/../out/library/obj
+SRC_DIRS        =  $(SRC_DIR) \
+                   $(SRC_DIR)/os/unix \
+                   $(SRC_DIR)/utils \
+                   $(SRC_DIR)/widgets
 
-C_FLAGS         = -O2 -fPIC -DUNIX -DHAVE_VPRINTF
+BIN_DIR         =  $(CROCON_LIB_ROOT)/../out/library/bin
+OBJ_DIR         =  $(CROCON_LIB_ROOT)/../out/library/obj
 
-SOURCES         = $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.c))
+ifeq ($(CROCON_DEBUG),true)
+C_FLAGS         =  -O2 -fPIC -DUNIX -DHAVE_VPRINTF -g3
+else
+C_FLAGS         =  -O2 -fPIC -DUNIX -DHAVE_VPRINTF
+endif
 
-OBJECTS         = $(OBJ_DIR)/crocunix.o \
-                  $(OBJ_DIR)/crocscrn.o \
-                  $(OBJ_DIR)/crocclrs.o \
-                  $(OBJ_DIR)/crocon.o
+SOURCES         =  $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.c))
+
+OBJECTS         =  $(OBJ_DIR)/crocunix.o \
+                   $(OBJ_DIR)/crocscrn.o \
+                   $(OBJ_DIR)/crocclrs.o \
+                   $(OBJ_DIR)/crocon.o
 
 all: prepare $(BIN_DIR)/lib$(PROJECT).so $(BIN_DIR)/lib$(PROJECT).a
 
