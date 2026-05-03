@@ -22,10 +22,13 @@ CC = gcc
 
 ifeq ($(CROCON_LEGACY),true)
 
+LD_ARCH         =  -m32
+LD_FLAGS	=  -Wl,--oformat=a.out-i386-linux
+
 ifeq ($(CROCON_DEBUG),true)
-C_FLAGS         =  -O0 -fPIC -DUNIX -DUNIX_LEGACY -DHAVE_VPRINTF -g3 -fno-omit-frame-pointer -Wl,--oformat=a.out-i386-linux
+C_FLAGS         =  -m32 -O0 -fPIC -DUNIX -DUNIX_LEGACY -DHAVE_VPRINTF -g3 -fno-omit-frame-pointer
 else
-C_FLAGS         =  -O2 -fPIC -DUNIX -DUNIX_LEGACY -DHAVE_VPRINTF -Wl,--oformat=a.out-i386-linux
+C_FLAGS         =  -m32 -O2 -fPIC -DUNIX -DUNIX_LEGACY -DHAVE_VPRINTF
 endif
 
 else
@@ -65,7 +68,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/widgets/%.c
 
 
 $(BIN_DIR)/lib$(PROJECT).so: $(OBJECTS)
-	$(CC) -shared -o $@ $(OBJECTS)
+	$(CC) $(LD_ARCH) -shared -o $@ $(OBJECTS) $(LD_FLAGS)
 
 $(BIN_DIR)/lib$(PROJECT).a: $(OBJECTS)
 	ar rcs $@ $(OBJECTS)
