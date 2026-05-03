@@ -22,13 +22,10 @@ CC = gcc
 
 ifeq ($(CROCON_LEGACY),true)
 
-LD_ARCH         =  -m32
-LD_FLAGS	=  -Wl,--oformat=a.out-i386-linux
-
 ifeq ($(CROCON_DEBUG),true)
-C_FLAGS         =  -m32 -O0 -fPIC -DUNIX -DUNIX_LEGACY -DHAVE_VPRINTF -g3 -fno-omit-frame-pointer
+C_FLAGS         =  -O0 -fPIC -DUNIX -DUNIX_LEGACY -DHAVE_VPRINTF -g3 -fno-omit-frame-pointer
 else
-C_FLAGS         =  -m32 -O2 -fPIC -DUNIX -DUNIX_LEGACY -DHAVE_VPRINTF
+C_FLAGS         =  -O2 -fPIC -DUNIX -DUNIX_LEGACY -DHAVE_VPRINTF
 endif
 
 else
