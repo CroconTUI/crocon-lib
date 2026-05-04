@@ -8,22 +8,23 @@ FILE* _crocon_stdout;
 
 int _crocon_initscr(CROCSCREEN* scr) {
 	
+	struct winsize w;
 	_crocon_stdout = stdout;
 	
-	scr->metrics.width  = 80;
-	scr->metrics.height = 25;
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+	scr->metrics.width  = w.ws_col;
+	scr->metrics.height = w.ws_row;
 
 	return true;
 }
 
 int _crocon_settitle(const char* title) {	
+	printf("\033]0;%s\007", title);
 	return 0;
 }
 
 int _crocon_clearscr() {
-
 	_crocon_fillscr(COLOR_BLACK, COLOR_GRAY, ' ');
-	
 	return 0;
 }
 
@@ -94,7 +95,7 @@ int _crocon_cprintf(rgbi4_t fg_color, const char* str) {
 	cstr = malloc((strlen(str) + 22) * sizeof(char));
 
 	color     = _crocon_pickcolor(COLOR_TRANSPARENT, fg_color);
-	def_color = "\x1B[m";
+	def_color = "\033[m";
 
 	strcpy(cstr, color);
 	strcat(cstr, str);

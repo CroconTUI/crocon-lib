@@ -4,6 +4,9 @@
 #include <crocon.h>
 #include <utils/c_exts.h>
 
+#include <sys/ioctl.h>
+#include <unistd.h>
+
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
