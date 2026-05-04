@@ -26,7 +26,7 @@ int _crocon_initscr() {
 	return true;	
 }
 
-int _crocon_settitle(const char* title) {	
+int _crocon_settitle(const char* title) {
 	int result = SetConsoleTitle(title);
 	return result;
 }
@@ -137,7 +137,7 @@ int _crocon_cprintf2(rgbi4_t fg_color, int length, const char* fmt_str, va_list 
 	
 	char* str = malloc(length * sizeof(length));
 	
-	#ifdef _MSC_VER >= 800
+	#ifdef MSVC_GE_800
 		_vsnprintf_s(str, length, length, fmt_str, args);
 	#else
 		_vsnprintf(str, length, fmt_str, args);
