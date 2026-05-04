@@ -122,7 +122,7 @@ int _crocon_cprintf2(rgbi4_t fg_color, int length, const char* fmt_str, va_list 
 }
 
 int _crocon_move(unsigned int x, unsigned int y) {
-
+	printf("\033[%d;%dH", y + 1, x);
 	return 0;
 }
 
