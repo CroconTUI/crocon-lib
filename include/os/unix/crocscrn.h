@@ -6,7 +6,7 @@
 
 #include <stdlib.h>
 
-extern int _crocon_initscr();
+extern int _crocon_initscr(CROCSCREEN* scr);
 extern int _crocon_settitle();
 extern int _crocon_clearscr();
 

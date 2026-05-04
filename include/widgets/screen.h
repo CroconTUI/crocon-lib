@@ -7,11 +7,11 @@
 typedef struct _crocon_screen {
 	bool alive;
 	bool echo;
-	bool monochrome;
-	bool cursor_vis;
+	bool mono;
+	bool cursor;
 
 	// Screen metrics (X, Y, width, height, scrollable or not and etc)
-	CROCMETRICS* metrics;
+	CROCMETRICS metrics;
 
 	// Background and foreground colors
 	rgbi4_t fg_color;

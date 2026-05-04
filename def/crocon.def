@@ -15,3 +15,5 @@ EXPORTS
 	crocon_fillchar
 	crocon_fillcolor
 	crocon_fillscr
+	crocon_freescr
+	stdscr

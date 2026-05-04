@@ -21,7 +21,7 @@ C_FLAGS         = -MT -W3 -EHsc -Zi -Od
 
 LD_FLAGS        = -dll -out:$(BIN_DIR)\crocon.dll -def:$(DEF_DIR)\crocon.def
 
-CC_FLAGS        = $(C_FLAGS) -I$(INC_DIR) -DCROC_STATIC_BUILD -DWIN32 -DWINDOWS -DMSVC_GE_800
+CC_FLAGS        = $(C_FLAGS) -I$(INC_DIR) -DCROC_STATIC_BUILD -DCROCON_LIB -DWIN32 -DWINDOWS -DMSVC_GE_800
 CC_FLAGS_DLL    = $(C_FLAGS) -I$(INC_DIR)
 CC_LIBS         = user32.lib
 

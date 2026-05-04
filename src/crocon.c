@@ -1,7 +1,11 @@
 #include <crocon.h>
 #include <crocpriv.h>
 
-extern int _crocon_initscr();
+#include <stdlib.h>
+
+CROCSCREEN* stdscr;
+
+extern int _crocon_initscr(CROCSCREEN* scr);
 extern int _crocon_settitle();
 extern int _crocon_clearscr();
 
@@ -34,7 +38,9 @@ extern int _crocon_getch();
 
 int crocon_initscr() {
 
-	_crocon_initscr();
+	stdscr = (CROCSCREEN*)malloc(sizeof(CROCSCREEN));
+
+	_crocon_initscr(stdscr);
 	_crocon_clearscr();
 	_crocon_move(0, 0);
 
@@ -125,5 +131,11 @@ int crocon_move(unsigned int x, unsigned int y) {
 
 int crocon_getch() {
 	return _crocon_getch();
+}
+
+int crocon_freescr() {
+	_crocon_clearscr();
+	_crocon_move(0, 0);
+	free(stdscr);
 }
 

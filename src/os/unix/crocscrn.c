@@ -6,9 +6,12 @@
 
 FILE* _crocon_stdout;
 
-int _crocon_initscr() {
+int _crocon_initscr(CROCSCREEN* scr) {
 	
 	_crocon_stdout = stdout;
+	
+	scr->metrics.width  = 80;
+	scr->metrics.height = 25;
 
 	return true;
 }

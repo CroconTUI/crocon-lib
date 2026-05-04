@@ -1,5 +1,5 @@
-#ifndef CROCON_LIB
-#define CROCON_LIB
+#ifndef _CROCON_CROCON_H
+#define _CROCON_CROCON_H
 
 #include <widgets/screen.h>
 #include <utils/colors.h>
@@ -13,6 +13,16 @@ typedef struct _crocon_version {
 	int minor;
 	int patch;
 } CROCVERSION;
+
+#ifdef CROCON_LIB
+	extern CROCSCREEN* stdscr;
+#else
+	#ifdef UNIX
+		CROCSCREEN* stdscr;
+	#elif WIN32
+		__declspec(dllimport) CROCSCREEN* stdscr;
+	#endif
+#endif
 
 int crocon_initscr();
 int crocon_settitle(const char* title);
@@ -53,5 +63,7 @@ int crocon_mvcprintf2(
 int crocon_move(unsigned int x, unsigned int y);
 
 int crocon_getch();
+
+int crocon_freescr();
 
 #endif

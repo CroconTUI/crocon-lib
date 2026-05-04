@@ -6,12 +6,12 @@
 
 HANDLE _crocon_stdout = INVALID_HANDLE_VALUE;
 
-int _crocon_initscr() {
+int _crocon_initscr(CROCSCREEN* scr) {
 	
 	HANDLE hStdOut = INVALID_HANDLE_VALUE;
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	int result;
-
+	
 	_crocon_stdout = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	hStdOut = CreateConsoleScreenBuffer(
@@ -22,6 +22,11 @@ int _crocon_initscr() {
 	
 	if(hStdOut == INVALID_HANDLE_VALUE)
 		hStdOut = _crocon_stdout;
+
+	result = GetConsoleScreenBufferInfo(_crocon_stdout, &csbi);
+	
+	scr->metrics.width  = csbi.dwSize.X;
+	scr->metrics.height = csbi.dwSize.Y;  
 
 	return true;	
 }
@@ -136,7 +141,7 @@ int _crocon_cprintf(rgbi4_t fg_color, const char* str) {
 int _crocon_cprintf2(rgbi4_t fg_color, int length, const char* fmt_str, va_list args) {
 	
 	char* str = malloc(length * sizeof(length));
-	
+
 	#ifdef MSVC_GE_800
 		_vsnprintf_s(str, length, length, fmt_str, args);
 	#else
