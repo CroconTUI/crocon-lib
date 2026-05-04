@@ -23,17 +23,17 @@ CC = gcc
 ifeq ($(CROCON_LEGACY),true)
 
 ifeq ($(CROCON_DEBUG),true)
-C_FLAGS         =  -O0 -fPIC -DUNIX -DUNIX_LEGACY -DHAVE_VPRINTF -g3 -fno-omit-frame-pointer
+C_FLAGS         =  -O0 -fPIC -DUNIX -DUNIX_LEGACY -DCROCON_LIB -DHAVE_VPRINTF -g3 -fno-omit-frame-pointer
 else
-C_FLAGS         =  -O2 -fPIC -DUNIX -DUNIX_LEGACY -DHAVE_VPRINTF
+C_FLAGS         =  -O2 -fPIC -DUNIX -DUNIX_LEGACY -DCROCON_LIB -DHAVE_VPRINTF
 endif
 
 else
 
 ifeq ($(CROCON_DEBUG),true)
-C_FLAGS         =  -O0 -fPIC -DUNIX -DHAVE_VPRINTF -g3 -fno-omit-frame-pointer -fno-optimize-sibling-calls 
+C_FLAGS         =  -O0 -fPIC -DUNIX -DCROCON_LIB -DHAVE_VPRINTF -g3 -fno-omit-frame-pointer -fno-optimize-sibling-calls 
 else
-C_FLAGS         =  -O2 -fPIC -DUNIX -DHAVE_VPRINTF
+C_FLAGS         =  -O2 -fPIC -DUNIX -DCROCON_LIB -DHAVE_VPRINTF
 endif
 
 endif
