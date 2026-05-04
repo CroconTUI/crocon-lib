@@ -26,14 +26,14 @@ CC_FLAGS_DLL    = $(C_FLAGS) -I$(INC_DIR)
 CC_LIBS         = user32.lib
 
 CC              = cl -nologo
-LINKE           = link.exe -nologo
+LINKER          = link.exe -nologo
 
 CROCON_LIBS     = $(BIN_DIR)\crocon.lib
 
 OBJECTS         = $(OBJ_DIR)\crocw32.obj \
-                $(OBJ_DIR)\crocscrn.obj \
-                $(OBJ_DIR)\crocclrs.obj \
-                $(OBJ_DIR)\crocon.obj
+                  $(OBJ_DIR)\crocscrn.obj \
+                  $(OBJ_DIR)\crocclrs.obj \
+                  $(OBJ_DIR)\crocon.obj
 
 all: prepare $(BIN_DIR)\$(PROJECT).dll
 
