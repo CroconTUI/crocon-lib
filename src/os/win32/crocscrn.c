@@ -64,7 +64,7 @@ int _crocon_initscr(CROCSCREEN* scr) {
 	szMaxBuf.Y = csbi.dwSize.Y > 1024 ?
 			1024 : csbi.dwSize.Y;
 
-	SetConsoleScreenBufferSize(_crocon_stdout, szMaxBuf);
+	SetConsoleScreenBufferSize(hOut, szMaxBuf);
 	
 	scr->alive = true;
 	scr->metrics.width  = szMaxBuf.X;

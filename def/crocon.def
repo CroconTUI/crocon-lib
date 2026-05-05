@@ -1,8 +1,10 @@
 LIBRARY				"Crocon"
 
 EXPORTS 
+	crocon_initscr
 	crocon_settitle
 	crocon_getver
+	crocon_clearscr
 	crocon_fillchar
 	crocon_cprintf
 	crocon_cprintf2
@@ -16,9 +18,6 @@ EXPORTS
 	crocon_getch
 	crocon_fillchar
 	crocon_fillcolor
-	crocon_initscr
 	crocon_fillscr
-	crocon_clearscr
 	crocon_freescr
-	crocon_createwin
 	stdscr

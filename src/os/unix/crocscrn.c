@@ -37,7 +37,7 @@ int _crocon_fillchar(
 	unsigned int y = height;
 
 	for(y; y > 0; y--) {
-		printf("\033[%d;%dH", orig_y + y, orig_x + x);
+		printf("\033[%d;%dH", orig_y + y, (orig_x - width) + x);
 		for(x; x > 0; x--) {
 			putchar(c);
 		}
@@ -64,7 +64,7 @@ int _crocon_fillcolor(
 
 	
 	for(y; y > 0; y--) {
-		printf("\033[%d;%dH", orig_y + y, orig_x + x);
+		printf("\033[%d;%dH", orig_y + y, (orig_x - width) + x);
 		printf(color);
 		for(x; x > 0; x--) {
 			putchar(' ');
