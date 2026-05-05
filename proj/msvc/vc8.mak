@@ -33,6 +33,7 @@ CROCON_LIBS     = $(BIN_DIR)\crocon.lib
 OBJECTS         = $(OBJ_DIR)\crocw32.obj \
                     $(OBJ_DIR)\crocscrn.obj \
                     $(OBJ_DIR)\crocclrs.obj \
+                    $(OBJ_DIR)\window.obj \
                     $(OBJ_DIR)\crocon.obj
 
 all: prepare $(BIN_DIR)\$(PROJECT).dll
@@ -44,6 +45,9 @@ $(BIN_DIR)\$(PROJECT).dll: $(OBJECTS)
     $(CC) $(CC_FLAGS) -c $< -Fo$@
 
 {$(SRC_DIR)\os\win32}.c{$(OBJ_DIR)}.obj:
+    $(CC) $(CC_FLAGS) -c $< -Fo$@
+    
+{$(SRC_DIR)\widgets}.c{$(OBJ_DIR)}.obj:
     $(CC) $(CC_FLAGS) -c $< -Fo$@
 
 prepare:
