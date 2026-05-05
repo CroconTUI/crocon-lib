@@ -1,6 +1,6 @@
 #ifdef UNIX
 
-#include <os/unix/crocscrn.h>
+#include <os/unix/crscreen.h>
 #include <stdio.h>
 #include <stdlib.h>
 

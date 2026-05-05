@@ -30,9 +30,9 @@ LINKER          = link.exe -nologo
 
 CROCON_LIBS     = $(BIN_DIR)\crocon.lib
 
-OBJECTS         = $(OBJ_DIR)\crocw32.obj \
-                    $(OBJ_DIR)\crocscrn.obj \
-                    $(OBJ_DIR)\crocclrs.obj \
+OBJECTS         = $(OBJ_DIR)\crwin32.obj \
+                    $(OBJ_DIR)\crscreen.obj \
+                    $(OBJ_DIR)\crcolors.obj \
                     $(OBJ_DIR)\window.obj \
                     $(OBJ_DIR)\crocon.obj
 

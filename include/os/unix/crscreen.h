@@ -30,12 +30,20 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _CROCON_OS_WIN32_CROCCLRS_H
-#define _CROCON_OS_WIN32_CROCCLRS_H
+#ifndef _CROCON_OS_UNIX_CROCSCRN_H
+#define _CROCON_OS_UNIX_CROCSCRN_H
 
-#include <os/win32/crocw32.h>
-#include <utils/colors.h>
+#include <os/unix/crunix.h>
+#include <os/unix/crcolors.h>
 
-extern unsigned short _crocon_pickcolor(rgbi4_t bg_color, rgbi4_t fg_color);
+#include <stdlib.h>
+
+extern int _crocon_initscr(CROCSCREEN* scr);
+extern int _crocon_settitle();
+extern int _crocon_clearscr();
+
+extern int _crocon_fillscr(
+	rgbi4_t bg_color, rgbi4_t fg_color, const char c 
+);
 
 #endif

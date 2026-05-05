@@ -4,9 +4,9 @@
 #include <stdarg.h>
 
 #ifdef WIN32
-	#include <os/win32/crocw32.h>
+	#include <os/win32/crwin32.h>
 #else
-	#include <os/unix/crocunix.h>
+	#include <os/unix/crunix.h>
 #endif
 
 #endif

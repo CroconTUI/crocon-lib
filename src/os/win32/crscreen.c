@@ -32,7 +32,7 @@
 
 #ifdef WIN32
 
-#include <os/win32/crocscrn.h>
+#include <os/win32/crscreen.h>
 #include <stdio.h>
 #include <stdlib.h>
 

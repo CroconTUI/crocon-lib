@@ -31,7 +31,7 @@
  */
 
 #include <utils/colors.h>
-#include <os/win32/crocclrs.h>
+#include <os/win32/crcolors.h>
 
 unsigned short _crocon_pickcolor(rgbi4_t bg_color, rgbi4_t fg_color) {
 

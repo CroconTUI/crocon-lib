@@ -41,8 +41,8 @@ endif
 SOURCES         =  $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.c))
 
 OBJECTS         =  $(OBJ_DIR)/crocunix.o \
-                   $(OBJ_DIR)/crocscrn.o \
-                   $(OBJ_DIR)/crocclrs.o \
+                   $(OBJ_DIR)/crscreen.o \
+                   $(OBJ_DIR)/crcolors.o \
                    $(OBJ_DIR)/window.o \
                    $(OBJ_DIR)/crocon.o
 

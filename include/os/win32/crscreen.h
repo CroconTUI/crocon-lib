@@ -33,8 +33,8 @@
 #ifndef _CROCON_OS_WIN32_CROCSCRN_H
 #define _CROCON_OS_WIN32_CROCSCRN_H
 
-#include <os/win32/crocw32.h>
-#include <os/win32/crocclrs.h>
+#include <os/win32/crwin32.h>
+#include <os/win32/crcolors.h>
 
 extern int _crocon_initscr(CROCSCREEN* scr);
 extern int _crocon_settitle();

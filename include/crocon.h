@@ -38,7 +38,7 @@
 #include <utils/colors.h>
 
 #ifdef WIN32
-	#include <os/win32/crocscrn.h>
+	#include <os/win32/crscreen.h>
 #endif
 
 typedef struct _crocon_version {
