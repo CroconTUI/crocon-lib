@@ -33,18 +33,17 @@ int _crocon_fillchar(
 	unsigned int width, unsigned int height,
 	const char c 
 ) {
-	unsigned int x = orig_x;
-	unsigned int y = orig_y;
+	unsigned int x = width;
+	unsigned int y = height;
 
-	for(y; y < (orig_y + height); y++) {
-		printf("\033[%d;%dH", y, orig_x);
-		for(x; x < (orig_x + width); x++) {
+	for(y; y > 0; y--) {
+		printf("\033[%d;%dH", orig_y + y, orig_x + x);
+		for(x; x > 0; x--) {
 			putchar(c);
 		}
 		fflush(stdout);
-		x = orig_x;
+		x = width;
 	}
-
 
 	return 0;
 }
@@ -57,26 +56,25 @@ int _crocon_fillcolor(
 	const char* color;
 	const char* def_color;
 
-	unsigned int x = orig_x;
-	unsigned int y = orig_y;
+	unsigned int x = width;
+	unsigned int y = height;
 
-	color     = _crocon_pickcolor(COLOR_TRANSPARENT, fg_color);
-	def_color = "\x1B[m";
+	color     = _crocon_pickcolor(bg_color, fg_color);
+	def_color = "\033[m";
+
 	
-	printf(color);
-	
-	for(y; y < (orig_y + height); y++) {
-		printf("\033[%d;%dH", y, orig_x);
-		for(x; x < (orig_x + width); x++) {
+	for(y; y > 0; y--) {
+		printf("\033[%d;%dH", orig_y + y, orig_x + x);
+		printf(color);
+		for(x; x > 0; x--) {
 			putchar(' ');
 		}
+		printf(def_color);
 		fflush(stdout);
-		x = orig_x;
+		x = width;
 	}
 
-	printf(def_color);
 	
-	fflush(stdout);
 	return 0;
 }
 
@@ -109,13 +107,48 @@ int _crocon_cprintf(rgbi4_t fg_color, const char* str) {
 	return 0;
 }
 
-int _crocon_cprintf2(rgbi4_t fg_color, int length, const char* fmt_str, va_list args) {
+int _crocon_cprintf2(rgbi4_t bg_color, rgbi4_t fg_color, const char* str) {
+	const char* color;
+	const char* def_color;
+	char* cstr;
+	
+	cstr = malloc((strlen(str) + 22) * sizeof(char));
+
+	color     = _crocon_pickcolor(bg_color, fg_color);
+	def_color = "\033[m";
+
+	strcpy(cstr, color);
+	strcat(cstr, str);
+	strcat(cstr, def_color);
+	
+	printf("%s", cstr);
+	
+	free(color);
+	free(cstr);
+	
+	return 0;
+}
+
+int _crocon_cprintf3(rgbi4_t fg_color, int length, const char* fmt_str, va_list args) {
 	
 	char* str = malloc(length * sizeof(length));
 	
 	vsnprintf(str, length, fmt_str, args);
 	
 	_crocon_cprintf(fg_color, str);
+
+	free(str);
+
+	return 0;
+}
+
+int _crocon_cprintf4(rgbi4_t bg_color, rgbi4_t fg_color, int length, const char* fmt_str, va_list args) {
+	
+	char* str = malloc(length * sizeof(length));
+	
+	vsnprintf(str, length, fmt_str, args);
+	
+	_crocon_cprintf2(bg_color, fg_color, str);
 
 	free(str);
 
