@@ -20,4 +20,5 @@ EXPORTS
 	crocon_fillcolor
 	crocon_fillscr
 	crocon_freescr
+	crocon_createwin
 	stdscr
