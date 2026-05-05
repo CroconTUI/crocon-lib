@@ -37,6 +37,8 @@
 
 #include <widgets/window.h>
 
+//int _crocon_wdrawbox(CROCWINDOW* wnd);
+
 int crocon_createwin(CROCWINDOW* wnd) {
 	
 	if(wnd == NULL)
@@ -47,6 +49,8 @@ int crocon_createwin(CROCWINDOW* wnd) {
 		wnd->metrics.width, wnd->metrics.height,
 		wnd->bg_color, wnd->fg_color
 	);
+
+	//_crocon_wdrawbox(wnd);
 
 	return 0;
 }
