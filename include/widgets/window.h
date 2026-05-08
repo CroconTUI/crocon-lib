@@ -33,9 +33,9 @@
 #ifndef _CROCON_WIDGETS_WINDOW_H
 #define _CROCON_WIDGETS_WINDOW_H
 
-#include <widgets/widget.h>
-#include <utils/metrics.h>
-#include <utils/colors.h> 
+#include "widget.h"
+#include "../utils/metrics.h"
+#include "../utils/colors.h" 
 
 typedef struct _crocon_window {
 	bool activated;

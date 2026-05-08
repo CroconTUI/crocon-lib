@@ -33,12 +33,12 @@
 #ifndef _CROCON_CROCON_H
 #define _CROCON_CROCON_H
 
-#include <widgets/screen.h>
-#include <widgets/window.h>
-#include <utils/colors.h>
+#include "widgets/screen.h"
+#include "widgets/window.h"
+#include "utils/colors.h"
 
 #ifdef WIN32
-	#include <os/win32/crscreen.h>
+	#include "os/win32/crscreen.h"
 #endif
 
 typedef struct _crocon_version {

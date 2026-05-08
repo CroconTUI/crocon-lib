@@ -33,8 +33,8 @@
 #ifndef _CROCON_WIDGETS_SCREEN_H
 #define _CROCON_WIDGETS_SCREEN_H
 
-#include <utils/metrics.h>
-#include <utils/colors.h>
+#include "../utils/metrics.h"
+#include "../utils/colors.h"
 
 typedef struct _crocon_screen {
 	bool alive;
