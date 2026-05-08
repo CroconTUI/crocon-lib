@@ -13,13 +13,12 @@ OBJ_DIR         = $(CROCON_ROOT)\..\out\library\obj
 
 C_FLAGS         = -MT -W3 -GX -Zi -YX -Od
 
+LD_FLAGS        = -dll -def:$(DEF_DIR)\crocon.def
+
 !ifdef DEBUG
 C_FLAGS         = -Z7 -DDEBUG
-LD_FLAGS        = -debug -pdb:none
+LD_FLAGS        = -debug -pdb:none -dll -def:$(DEF_DIR)\crocon.def
 !endif
-
-
-LD_FLAGS        = -dll -def:$(DEF_DIR)\crocon.def
 
 CC_FLAGS        = $(C_FLAGS) -I$(INC_DIR) -DCROCON_LIB -DCROC_STATIC_BUILD -DWIN32 -DWINDOWS
 CC_FLAGS_DLL    = $(C_FLAGS) -I$(INC_DIR)
