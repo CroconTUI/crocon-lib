@@ -1,7 +1,6 @@
 /*
  * BSD 3-Clause License
  *
- * Copyright (c) 2026, CroconTUI Project
  * Copyright (c) 2026, Dmitry Tretyakov
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,9 +29,14 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _CROCON_C_EXTS
-#define _CROCON_C_EXTS
+#ifndef _TINELIX_C_EXTS
+#define _TINELIX_C_EXTS
 
 typedef enum {false, true} bool;
+
+typedef unsigned char  uchar_t;
+typedef unsigned short ushort_t;
+typedef unsigned int   uint_t;
+typedef unsigned long  ulong_t;
 
 #endif
