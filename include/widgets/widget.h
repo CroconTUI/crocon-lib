@@ -33,8 +33,8 @@
 #ifndef _CROCON_WIDGETS_WIDGET_H
 #define _CROCON_WIDGETS_WIDGET_H
 
-#include <utils/metrics.h>
-#include <utils/colors.h>
+#include "../utils/metrics.h"
+#include "../utils/colors.h"
 
 typedef enum {
 	WIDGET_EMPTY    = 0,
