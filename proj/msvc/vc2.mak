@@ -11,12 +11,12 @@ RES_DIR         = $(CROCON_ROOT)\res
 BIN_DIR         = $(CROCON_ROOT)\..\out\library\bin
 OBJ_DIR         = $(CROCON_ROOT)\..\out\library\obj
 
-C_FLAGS         = -MT -W3 -GX -Zi -YX -Od
+C_FLAGS         = -MT -W3 -GX -Zi -YX -O2
 
 LD_FLAGS        = -dll -def:$(DEF_DIR)\crocon.def
 
 !ifdef DEBUG
-C_FLAGS         = -Z7 -DDEBUG
+C_FLAGS         = -Z7 -DDEBUG -MT -W3 -GX -YX -Od
 LD_FLAGS        = -debug -pdb:none -dll -def:$(DEF_DIR)\crocon.def
 !endif
 

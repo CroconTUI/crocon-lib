@@ -33,6 +33,7 @@
 #ifdef WIN32
 
 #include <os/win32/crscreen.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -44,6 +45,11 @@ int _crocon_initscr(CROCSCREEN* scr) {
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	int result;
 	COORD szMaxBuf;
+
+	#ifndef MSVC_GE_800
+		// Workaround for FPI support loading
+		double fpiWa = sqrt(4);
+	#endif
 	
 	_crocon_stdout = GetStdHandle(STD_OUTPUT_HANDLE);
 
