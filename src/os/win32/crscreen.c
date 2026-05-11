@@ -169,19 +169,20 @@ int _crocon_cprintf(rgbi4_t fg_color, const char* str) {
 	DWORD written;
 	WORD color;
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	COORD cursor;
 
 	GetConsoleScreenBufferInfo(_crocon_stdout, &csbi);
+	cursor = csbi.dwCursorPosition;
+
+	if(fg_color != COLOR_GRAY) {
+		color = (WORD)_crocon_pickcolor(COLOR_BLACK, fg_color);
+	
+		SetConsoleTextAttribute(_crocon_stdout, color);
+	}
 
 	WriteConsole(_crocon_stdout, str, strlen(str), &result, NULL);
 
-	if(fg_color == COLOR_GRAY)
-		return false;
-
-	color = (WORD)_crocon_pickcolor(COLOR_BLACK, fg_color);
-	
-	FillConsoleOutputAttribute(
-		_crocon_stdout, color, strlen(str), csbi.dwCursorPosition, &written
-	);
+	SetConsoleTextAttribute(_crocon_stdout, 0);
 
 	return true;
 }
@@ -192,26 +193,27 @@ int _crocon_cprintf2(rgbi4_t bg_color, rgbi4_t fg_color, const char* str) {
 	DWORD written;
 	WORD color;
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	COORD cursor;
 
 	GetConsoleScreenBufferInfo(_crocon_stdout, &csbi);
+	cursor = csbi.dwCursorPosition;
+
+	if(fg_color != COLOR_GRAY) {
+		color = (WORD)_crocon_pickcolor(bg_color, fg_color);
+	
+		SetConsoleTextAttribute(_crocon_stdout, color);
+	}
 
 	WriteConsole(_crocon_stdout, str, strlen(str), &result, NULL);
 
-	if(fg_color == COLOR_GRAY)
-		return false;
-
-	color = (WORD)_crocon_pickcolor(bg_color, fg_color);
-	
-	FillConsoleOutputAttribute(
-		_crocon_stdout, color, strlen(str), csbi.dwCursorPosition, &written
-	);
+	SetConsoleTextAttribute(_crocon_stdout, 0);
 
 	return true;
 }
 
 int _crocon_cprintf3(rgbi4_t fg_color, int length, const char* fmt_str, va_list args) {
 	
-	char* str = malloc(length * sizeof(length));
+	char* str = malloc((length + 1) * sizeof(char));
 
 	#ifdef MSVC_GE_800
 		_vsnprintf_s(str, length, length, fmt_str, args);
@@ -228,7 +230,7 @@ int _crocon_cprintf3(rgbi4_t fg_color, int length, const char* fmt_str, va_list 
 
 int _crocon_cprintf4(rgbi4_t bg_color, rgbi4_t fg_color, int length, const char* fmt_str, va_list args) {
 	
-	char* str = malloc(length * sizeof(length));
+	char* str = malloc((length + 1) * sizeof(char));
 
 	#ifdef MSVC_GE_800
 		_vsnprintf_s(str, length, length, fmt_str, args);
