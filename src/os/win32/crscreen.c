@@ -152,9 +152,7 @@ int _crocon_fillscr(
 
 	color = (WORD)_crocon_pickcolor(bg_color, fg_color);
 
-	FillConsoleOutputAttribute(
-		_crocon_stdout, color, width, cursor, &written
-	);
+	SetConsoleTextAttribute(_crocon_stdout, color);
 
 	FillConsoleOutputCharacter(
 		_crocon_stdout, c, width, cursor, &written
@@ -178,11 +176,11 @@ int _crocon_cprintf(rgbi4_t fg_color, const char* str) {
 		color = (WORD)_crocon_pickcolor(COLOR_BLACK, fg_color);
 	
 		SetConsoleTextAttribute(_crocon_stdout, color);
+	} else {
+		SetConsoleTextAttribute(_crocon_stdout, 0);
 	}
 
 	WriteConsole(_crocon_stdout, str, strlen(str), &result, NULL);
-
-	SetConsoleTextAttribute(_crocon_stdout, 0);
 
 	return true;
 }
