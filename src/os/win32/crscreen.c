@@ -47,8 +47,10 @@ int _crocon_initscr(CROCSCREEN* scr) {
 	int result;
 	COORD szMaxBuf;
 
-	// Workaround for FPI support loading
-	double fpiWa = sqrt(4);
+	#ifndef MSVC_GE_800
+		// Workaround for FPI support loading
+		double fpiWa = sqrt(4);
+	#endif
 	
 	_crocon_stdout = GetStdHandle(STD_OUTPUT_HANDLE);
 
