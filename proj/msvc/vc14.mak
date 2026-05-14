@@ -16,7 +16,7 @@ LD_FLAGS        = -dll -out:$(BIN_DIR)\crocon.dll -def:$(DEF_DIR)\crocon.def
 
 !ifdef DEBUG
     C_FLAGS     = -MT -W3 -EHsc -Z7 -Od -DDEBUG
-    LD_FLAGS    = -debug -pdb:none -dll -out:$(BIN_DIR)\crocon.dll -def:$(DEF_DIR)\crocon.def
+    LD_FLAGS    = -debug:none -dll -out:$(BIN_DIR)\crocon.dll -def:$(DEF_DIR)\crocon.def
 !endif
 
 CC_FLAGS        = $(C_FLAGS) -I$(INC_DIR) -DCROC_STATIC_BUILD -DCROCON_LIB -DMSVC_GE_800 -DWIN32 -DWINDOWS -ignore:4208
