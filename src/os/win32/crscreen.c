@@ -36,6 +36,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
 
 HANDLE _crocon_stdout = INVALID_HANDLE_VALUE;
 
@@ -46,10 +47,8 @@ int _crocon_initscr(CROCSCREEN* scr) {
 	int result;
 	COORD szMaxBuf;
 
-	#ifndef MSVC_GE_800
-		// Workaround for FPI support loading
-		double fpiWa = sqrt(4);
-	#endif
+	// Workaround for FPI support loading
+	double fpiWa = sqrt(4);
 	
 	_crocon_stdout = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -196,11 +195,9 @@ int _crocon_cprintf2(rgbi4_t bg_color, rgbi4_t fg_color, const char* str) {
 	GetConsoleScreenBufferInfo(_crocon_stdout, &csbi);
 	cursor = csbi.dwCursorPosition;
 
-	if(fg_color != COLOR_GRAY) {
-		color = (WORD)_crocon_pickcolor(bg_color, fg_color);
+	color = (WORD)_crocon_pickcolor(bg_color, fg_color);
 	
-		SetConsoleTextAttribute(_crocon_stdout, color);
-	}
+	SetConsoleTextAttribute(_crocon_stdout, color);
 
 	WriteConsole(_crocon_stdout, str, strlen(str), &result, NULL);
 
@@ -256,7 +253,23 @@ int _crocon_move(unsigned int x, unsigned int y) {
 }
 
 int _crocon_getch() {
-	return getchar();
+	return _getch();
+}
+
+int _crocon_kbhit() {
+	return _kbhit();
+}
+
+int _crocon_hidecurs() {
+	
+	int result = 0;
+	CONSOLE_CURSOR_INFO curs_info;
+
+	GetConsoleCursorInfo(_crocon_stdout, &curs_info);
+	curs_info.bVisible = FALSE;
+	SetConsoleCursorInfo(_crocon_stdout, &curs_info);
+
+	return result;
 }
 
 #endif

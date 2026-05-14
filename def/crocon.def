@@ -15,7 +15,9 @@ EXPORTS
 	crocon_mvcprintf3
 	crocon_mvcprintf4
 	crocon_move
+	crocon_kbhit
 	crocon_getch
+	crocon_hidecurs
 	crocon_fillchar
 	crocon_fillcolor
 	crocon_fillscr

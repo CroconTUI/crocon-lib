@@ -146,6 +146,12 @@ unsigned short _crocon_pickcolor(rgbi4_t bg_color, rgbi4_t fg_color) {
 			result |= FOREGROUND_RED  | FOREGROUND_GREEN | FOREGROUND_INTENSITY;
 			break;
 
+		case COLOR_BLACK:
+			if(result == 0)
+				result = FOREGROUND_RED  | FOREGROUND_GREEN     | 
+			             FOREGROUND_BLUE;
+			break;
+
 		case COLOR_BRIGHT:
 			result |= FOREGROUND_INTENSITY;
 			break;

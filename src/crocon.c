@@ -75,6 +75,8 @@ extern int _crocon_cprintf4(
 
 extern int _crocon_move(unsigned int x, unsigned int y);
 extern int _crocon_getch();
+extern int _crocon_kbhit();
+extern int _crocon_hidecurs();
 
 int crocon_initscr() {
 
@@ -213,6 +215,14 @@ int crocon_move(unsigned int x, unsigned int y) {
 
 int crocon_getch() {
 	return _crocon_getch();
+}
+
+int crocon_kbhit() {
+	return _crocon_kbhit();
+}
+
+int crocon_hidecurs() {
+	return _crocon_hidecurs();	
 }
 
 int crocon_freescr() {

@@ -107,7 +107,9 @@ int crocon_mvcprintf4(
 );
 
 int crocon_move(unsigned int x, unsigned int y);
+int crocon_kbhit();
 int crocon_getch();
+int crocon_hidecurs();
 
 // Screen (console buffer)
 
