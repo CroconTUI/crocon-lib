@@ -4,7 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-FILE* _crocon_stdout;
+FILE*   _crocon_stdout;
+cbool   _crocon_conio_emu;
+struct termios _crocon_old_attrs, _crocon_new_attrs;
+int _crocon_block_mode;
 
 int _crocon_initscr(CROCSCREEN* scr) {
 	
@@ -14,11 +17,13 @@ int _crocon_initscr(CROCSCREEN* scr) {
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 	scr->metrics.width  = w.ws_col;
 	scr->metrics.height = w.ws_row;
+	
+	_crocon_coniomode(ctrue);
 
 	return ctrue;
 }
 
-int _crocon_settitle(const char* title) {	
+int _crocon_settitle(const char* title) {
 	printf("\033]0;%s\007", title);
 	return 0;
 }
@@ -26,6 +31,34 @@ int _crocon_settitle(const char* title) {
 int _crocon_clearscr() {
 	_crocon_fillscr(COLOR_BLACK, COLOR_GRAY, ' ');
 	return 0;
+}
+
+int _crocon_coniomode(cbool value) {
+	
+	// from: https://github.com/Flawww/linux_conio/blob/main/linux_conio.cpp
+	
+	// allow kbhit and getch on UNIX/Linux
+	if (value == _crocon_conio_emu) {
+        return -1;
+    }
+    _crocon_conio_emu = ctrue;
+    
+    tcgetattr(STDIN_FILENO, &_crocon_old_attrs);
+    _crocon_new_attrs = _crocon_old_attrs;
+    _crocon_new_attrs.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &_crocon_new_attrs);
+}
+
+int _crocon_noblock(cbool value) {
+	
+	// from: https://github.com/Flawww/linux_conio/blob/main/linux_conio.cpp
+	
+	if(value == ctrue) {
+		_crocon_block_mode = fcntl(STDIN_FILENO, F_GETFL, 0);
+		fcntl(STDIN_FILENO, F_SETFL, _crocon_block_mode | O_NONBLOCK);
+	} else {
+		fcntl(STDIN_FILENO, F_SETFL, _crocon_block_mode);
+	}
 }
 
 int _crocon_fillchar(
@@ -165,7 +198,28 @@ int _crocon_getch() {
 }
 
 int _crocon_kbhit() {
-	return kbhit();
+	
+	int c;
+	
+	// from: https://github.com/Flawww/linux_conio/blob/main/linux_conio.cpp
+	
+	 if (!_crocon_conio_emu) {
+        return cfalse;
+    }
+    
+    c = getchar();
+    
+    _crocon_noblock(ctrue);
+    _crocon_noblock(cfalse);
+    
+    // if the char returned from non-blocking getchar is not EOF, a character exists in stdin.
+    if (c != EOF) {
+        // put the character we read back onto the stdin stream
+        ungetc(c, stdin);
+        return ctrue;
+    }
+    
+    return cfalse;
 }
 
 int _crocon_hidecurs() {

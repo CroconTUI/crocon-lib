@@ -40,7 +40,7 @@ endif
 
 SOURCES         =  $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.c))
 
-OBJECTS         =  $(OBJ_DIR)/crocunix.o \
+OBJECTS         =  $(OBJ_DIR)/crunix.o \
                    $(OBJ_DIR)/crscreen.o \
                    $(OBJ_DIR)/crcolors.o \
                    $(OBJ_DIR)/window.o \

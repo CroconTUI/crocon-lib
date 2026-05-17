@@ -10,6 +10,9 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
+#include <termios.h>
+#include <signal.h>
+#include <fcntl.h>
 
 #ifdef __cplusplus
 extern "C" {
