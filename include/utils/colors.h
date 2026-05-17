@@ -35,6 +35,10 @@
 
 #include <stdio.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // Background and foreground colors (by RGBI HEX system)
 
 typedef enum {
@@ -68,5 +72,9 @@ typedef enum {
 	// 16 colors
 
 } rgbi4_t;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

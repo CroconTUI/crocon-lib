@@ -97,7 +97,7 @@ int crocon_getver(CROCVERSION* version) {
 	version->major = 26;
 	version->minor = 4;
 	version->patch = 21;
-	return true;
+	return ctrue;
 }
 
 int crocon_clearscr() {
@@ -109,7 +109,7 @@ int crocon_fillchar(
 	unsigned int width, unsigned int height,
 	const char c 
 ) {
-	return _crocon_fillchar(x, y, width, height, c);	
+	return _crocon_fillchar(x, y, width, height, c);
 }
 
 int crocon_fillcolor(
@@ -117,7 +117,7 @@ int crocon_fillcolor(
 	unsigned int width, unsigned int height,
 	rgbi4_t bg_color, rgbi4_t fg_color
 ) {
-	return _crocon_fillcolor(x, y, width, height, bg_color, fg_color);	
+	return _crocon_fillcolor(x, y, width, height, bg_color, fg_color);
 }
 
 int crocon_fillscr(
@@ -222,7 +222,7 @@ int crocon_kbhit() {
 }
 
 int crocon_hidecurs() {
-	return _crocon_hidecurs();	
+	return _crocon_hidecurs();
 }
 
 int crocon_freescr() {

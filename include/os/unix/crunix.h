@@ -11,6 +11,14 @@
 #include <stdarg.h>
 #include <string.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern FILE* _crocon_stdout;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

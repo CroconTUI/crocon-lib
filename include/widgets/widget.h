@@ -36,6 +36,10 @@
 #include "../utils/metrics.h"
 #include "../utils/colors.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef enum {
 	WIDGET_EMPTY    = 0,
 	WIDGET_LABEL    = 1,
@@ -62,10 +66,10 @@ typedef union _crocon_widget {
 	rgbi4_t bg_color;
 	
 	// 'Focused', 'checked', 'enabled' flags for controls
-	bool focused;
-	bool checked;
-	bool enabled;
-	bool visible;
+	cbool focused;
+	cbool checked;
+	cbool enabled;
+	cbool visible;
 	
 	int selected_id;
 	int total_items;
@@ -77,5 +81,9 @@ typedef union _crocon_widget {
 
 	int style_attr;
 } CROCWIDGET;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

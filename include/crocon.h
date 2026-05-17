@@ -41,6 +41,10 @@
 	#include "os/win32/crscreen.h"
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct _crocon_version {
 	int major;
 	int minor;
@@ -125,5 +129,9 @@ int crocon_freescr();
 // Widgets (window, button, progressbar and etc.)
 
 int crocon_createwin(CROCWINDOW* wnd);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

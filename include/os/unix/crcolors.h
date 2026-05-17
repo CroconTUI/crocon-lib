@@ -36,6 +36,14 @@
 #include <os/unix/crunix.h>
 #include <utils/colors.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern const char* _crocon_pickcolor(rgbi4_t bg_color, rgbi4_t fg_color);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

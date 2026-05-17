@@ -35,6 +35,10 @@
 
 #include "c_exts.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct _crocon_metrics {
 	
 	// Screen coordinates (up to 16383 x 16383 chars)
@@ -50,11 +54,15 @@ typedef struct _crocon_metrics {
 	unsigned int   	full_height     : 18;
 
 	// Scrollable and sizeable widgets support
-	bool 		scrollable;
-	bool 		sizeable;
+	cbool			scrollable;
+	cbool			sizeable;
 	unsigned int	x_scroll_pos    : 18;
-	unsigned int    y_scroll_pos    : 18;
+	unsigned int	y_scroll_pos    : 18;
 	 
 } CROCMETRICS;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

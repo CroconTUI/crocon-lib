@@ -36,6 +36,14 @@
 #include "crwin32.h"
 #include "../../utils/colors.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern unsigned short _crocon_pickcolor(rgbi4_t bg_color, rgbi4_t fg_color);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

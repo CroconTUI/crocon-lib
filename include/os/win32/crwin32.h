@@ -40,6 +40,14 @@
 
 #include <windows.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern HANDLE _crocon_stdout;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

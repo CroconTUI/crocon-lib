@@ -73,11 +73,11 @@ int _crocon_initscr(CROCSCREEN* scr) {
 
 	SetConsoleScreenBufferSize(_crocon_stdout, szMaxBuf);
 	
-	scr->alive = true;
+	scr->alive = ctrue;
 	scr->metrics.width  = szMaxBuf.X;
 	scr->metrics.height = szMaxBuf.Y;
 
-	return true;
+	return ctrue;
 }
 
 int _crocon_settitle(const char* title) {
@@ -89,7 +89,7 @@ int _crocon_clearscr() {
 
 	_crocon_fillscr(COLOR_BLACK, COLOR_GRAY, ' ');
 	
-	return true;	
+	return ctrue;
 }
 
 int _crocon_fillchar(
@@ -109,7 +109,7 @@ int _crocon_fillchar(
 		FillConsoleOutputCharacter(_crocon_stdout, c, width, cursor, &written);
 	}
 
-	return true;
+	return ctrue;
 }
 
 int _crocon_fillcolor(
@@ -132,7 +132,7 @@ int _crocon_fillcolor(
 		FillConsoleOutputAttribute(_crocon_stdout, color, width, cursor, &written);
 	}
 
-	return true;
+	return ctrue;
 }
 
 int _crocon_fillscr(
@@ -159,7 +159,7 @@ int _crocon_fillscr(
 		_crocon_stdout, c, width, cursor, &written
 	);
 
-	return true;
+	return ctrue;
 }
 
 int _crocon_cprintf(rgbi4_t fg_color, const char* str) {
@@ -183,7 +183,7 @@ int _crocon_cprintf(rgbi4_t fg_color, const char* str) {
 
 	WriteConsole(_crocon_stdout, str, strlen(str), &result, NULL);
 
-	return true;
+	return ctrue;
 }
 
 int _crocon_cprintf2(rgbi4_t bg_color, rgbi4_t fg_color, const char* str) {
@@ -205,7 +205,7 @@ int _crocon_cprintf2(rgbi4_t bg_color, rgbi4_t fg_color, const char* str) {
 
 	SetConsoleTextAttribute(_crocon_stdout, 0);
 
-	return true;
+	return ctrue;
 }
 
 int _crocon_cprintf3(rgbi4_t fg_color, int length, const char* fmt_str, va_list args) {
@@ -222,7 +222,7 @@ int _crocon_cprintf3(rgbi4_t fg_color, int length, const char* fmt_str, va_list 
 
 	free(str);
 
-	return true;
+	return ctrue;
 }
 
 int _crocon_cprintf4(rgbi4_t bg_color, rgbi4_t fg_color, int length, const char* fmt_str, va_list args) {
@@ -239,7 +239,7 @@ int _crocon_cprintf4(rgbi4_t bg_color, rgbi4_t fg_color, int length, const char*
 
 	free(str);
 
-	return true;
+	return ctrue;
 }
 
 int _crocon_move(unsigned int x, unsigned int y) {
@@ -251,7 +251,7 @@ int _crocon_move(unsigned int x, unsigned int y) {
 	
 	SetConsoleCursorPosition(_crocon_stdout, cursor);
 	
-	return true;	
+	return ctrue;
 }
 
 int _crocon_getch() {

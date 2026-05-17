@@ -36,11 +36,15 @@
 #include "../utils/metrics.h"
 #include "../utils/colors.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct _crocon_screen {
-	bool alive;
-	bool echo;
-	bool mono;
-	bool cursor;
+	cbool alive;
+	cbool echo;
+	cbool mono;
+	cbool cursor;
 
 	// Screen metrics (X, Y, width, height, scrollable or not and etc)
 	CROCMETRICS metrics;
@@ -49,5 +53,9 @@ typedef struct _crocon_screen {
 	rgbi4_t fg_color;
 	rgbi4_t bg_color;
 } CROCSCREEN;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -15,7 +15,7 @@ int _crocon_initscr(CROCSCREEN* scr) {
 	scr->metrics.width  = w.ws_col;
 	scr->metrics.height = w.ws_row;
 
-	return true;
+	return ctrue;
 }
 
 int _crocon_settitle(const char* title) {	
@@ -162,6 +162,19 @@ int _crocon_move(unsigned int x, unsigned int y) {
 
 int _crocon_getch() {
 	return getchar();
+}
+
+int _crocon_kbhit() {
+	return kbhit();
+}
+
+int _crocon_hidecurs() {
+	
+	int result = 0;
+	
+	printf("\e[?25l");
+
+	return result;
 }
 
 #endif

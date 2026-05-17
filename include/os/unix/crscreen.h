@@ -38,6 +38,10 @@
 
 #include <stdlib.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern int _crocon_initscr(CROCSCREEN* scr);
 extern int _crocon_settitle();
 extern int _crocon_clearscr();
@@ -45,5 +49,9 @@ extern int _crocon_clearscr();
 extern int _crocon_fillscr(
 	rgbi4_t bg_color, rgbi4_t fg_color, const char c 
 );
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

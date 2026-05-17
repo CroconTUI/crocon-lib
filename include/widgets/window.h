@@ -35,12 +35,16 @@
 
 #include "widget.h"
 #include "../utils/metrics.h"
-#include "../utils/colors.h" 
+#include "../utils/colors.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef struct _crocon_window {
-	bool activated;
-	bool minimized;
-	bool maximized;
+	cbool activated;
+	cbool minimized;
+	cbool maximized;
 
 	// Screen metrics (X, Y, width, height, scrollable or not and etc)
 	CROCMETRICS metrics;
@@ -51,5 +55,9 @@ typedef struct _crocon_window {
 	
 	widget_t** widgets;
 } CROCWINDOW;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
