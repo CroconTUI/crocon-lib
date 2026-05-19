@@ -21,21 +21,13 @@ OBJ_DIR         =  $(CROCON_LIB_ROOT)/../out/library/obj
 CC = gcc
 
 ifeq ($(CROCON_LEGACY),true)
-
-ifeq ($(CROCON_DEBUG),true)
-C_FLAGS         =  -O0 -fPIC -DUNIX -DUNIX_LEGACY -DHAVE_VPRINTF -g3 -fno-omit-frame-pointer
-else
-C_FLAGS         =  -O2 -fPIC -DUNIX -DUNIX_LEGACY -DHAVE_VPRINTF
+C_LEGACY        = -DUNIX_LEGACY
 endif
 
-else
-
 ifeq ($(CROCON_DEBUG),true)
-C_FLAGS         =  -O0 -fPIC -DUNIX -DHAVE_VPRINTF -g3 -fno-omit-frame-pointer -fno-optimize-sibling-calls 
+C_FLAGS         =  -O0 -fPIC -DCROCON_LIB -DUNIX -DHAVE_VPRINTF $(C_LEGACY) -g3 -fno-omit-frame-pointer -fno-optimize-sibling-calls 
 else
-C_FLAGS         =  -O2 -fPIC -DUNIX -DHAVE_VPRINTF
-endif
-
+C_FLAGS         =  -O2 -fPIC -DCROCON_LIB -DUNIX -DHAVE_VPRINTF $(C_LEGACY)
 endif
 
 SOURCES         =  $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.c))

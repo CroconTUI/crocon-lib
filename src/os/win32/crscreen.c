@@ -89,7 +89,7 @@ int _crocon_clearscr() {
 
 	_crocon_fillscr(COLOR_BLACK, COLOR_GRAY, ' ');
 	
-	return ctrue;
+	return ctrue;	
 }
 
 int _crocon_fillchar(
@@ -251,7 +251,7 @@ int _crocon_move(unsigned int x, unsigned int y) {
 	
 	SetConsoleCursorPosition(_crocon_stdout, cursor);
 	
-	return ctrue;
+	return ctrue;	
 }
 
 int _crocon_getch() {

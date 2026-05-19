@@ -204,13 +204,12 @@ int _crocon_kbhit() {
 	// from: https://github.com/Flawww/linux_conio/blob/main/linux_conio.cpp
 	
 	 if (!_crocon_conio_emu) {
-        return cfalse;
-    }
-    
-    c = getchar();
-    
-    _crocon_noblock(ctrue);
-    _crocon_noblock(cfalse);
+		return cfalse;
+	}
+	
+ 	_crocon_noblock(ctrue);
+	c = getchar();
+	_crocon_noblock(cfalse);
     
     // if the char returned from non-blocking getchar is not EOF, a character exists in stdin.
     if (c != EOF) {
