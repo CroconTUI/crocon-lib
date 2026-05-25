@@ -30,25 +30,67 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _CROCON_OS_WIN32_CROCSCRN_H
-#define _CROCON_OS_WIN32_CROCSCRN_H
+#ifndef _CROCON_UTILS_SEMIGRP_H
+#define _CROCON_UTILS_SEMIGRP_H
 
-#include "crwin32.h"
-#include "crcolors.h"
+#include <stdio.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-extern int _crocon_initscr(CROCSCREEN* scr);
-extern int _crocon_settitle();
-extern int _crocon_clearscr();
+// Background and foreground colors (by RGBI HEX system)
 
-extern int _crocon_fillscr(
-	rgbi4_t bg_color, rgbi4_t fg_color, const char c 
-);
+typedef enum {
 
-int        _crocon_hidecurs(cbool value);
+	// Single lines
+
+	SG_LINES_1H      = 0x2500,
+	SG_LINES_1V      = 0x2502,
+	
+	// Up/Down and Left/Right
+	
+	SG_LINES_1D_1R   = 0x250C,
+	SG_LINES_1D_1L   = 0x2510,
+	SG_LINES_1U_1R   = 0x2514,
+	SG_LINES_1U_1L   = 0x2518,
+
+	// Vertical/Horizontal and Left/Right
+
+	SG_LINES_1V_1R   = 0x251C,
+	SG_LINES_1V_1L   = 0x2524,
+	SG_LINES_1H_1R   = 0x252C,
+	SG_LINES_1H_1L   = 0x2534,
+	
+	// Cross single lines
+	
+	SG_LINES_1V_1H   = 0x253C,
+
+	// Double lines
+
+	SG_LINES_2H      = 0x2550,
+	SG_LINES_2V      = 0x2551,
+	
+	// Double Up/Down and Double Left/Right
+
+    SG_LINES_2D_2R   = 0x2554,
+	SG_LINES_2D_2L   = 0x2557,
+	SG_LINES_2U_2R   = 0x255A,
+	SG_LINES_2U_2L   = 0x255D,
+
+	// Double Vertical/Horizontal and Left/Right
+
+	SG_LINES_2V_2R   = 0x2560,
+	SG_LINES_2V_2L   = 0x2563,
+	SG_LINES_2H_2R   = 0x2566,
+	SG_LINES_2H_2L   = 0x2569,
+
+	// Cross double lines
+	
+	SG_LINES_2V_2H   = 0x256C
+	
+} semigrp_t;
+
 
 #ifdef __cplusplus
 }

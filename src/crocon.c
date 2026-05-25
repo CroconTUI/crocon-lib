@@ -31,52 +31,51 @@
  */
 
 #include <crocon.h>
+#include <utils/colors.h>
 #include <crocpriv.h>
 
 #include <stdlib.h>
 
 CROCSCREEN* stdscr;
 
-extern int _crocon_initscr(CROCSCREEN* scr);
-extern int _crocon_settitle();
-extern int _crocon_clearscr();
+extern cbool _crocon_initscr(CROCSCREEN* scr);
+extern cbool _crocon_settitle();
+extern cbool _crocon_clearscr();
+extern cbool _crocon_freescr();
 
-extern int _crocon_fillchar(
-	unsigned int x, unsigned int y,
-	unsigned int width, unsigned int height,
+extern cbool _crocon_fillchar(
+	uint_t x,     uint_t y,
+	uint_t width, uint_t height,
 	const char c
 );
 
-extern int _crocon_fillcolor(
-	unsigned int orig_x, unsigned int orig_y,
-	unsigned int width, unsigned int height,
+extern cbool _crocon_fillcolor(
+	uint_t orig_x, uint_t orig_y,
+	uint_t width,  uint_t height,
 	rgbi4_t bg_color, rgbi4_t fg_color 
 );
 
-extern int _crocon_fillscr(
+extern cbool _crocon_fillscr(
 	rgbi4_t bg_color, rgbi4_t fg_color, const char c 
 );
 
-extern int _crocon_cprintf(
-	rgbi4_t fg_color, const char* str
+extern cbool _crocon_cputchar(
+	rgbi4_t bg_color, rgbi4_t fg_color, const char c 
 );
 
-extern int _crocon_cprintf2(
+extern cbool _crocon_cprintf(
 	rgbi4_t bg_color, rgbi4_t fg_color, const char* str
 );
 
-extern int _crocon_cprintf3(
-	rgbi4_t fg_color, int length, const char* str, va_list args
+extern cbool _crocon_cprintf_va(
+	rgbi4_t bg_color, rgbi4_t fg_color, int length, 
+	const char* str, va_list args
 );
 
-extern int _crocon_cprintf4(
-	rgbi4_t bg_color, rgbi4_t fg_color, int length, const char* str, va_list args
-);
-
-extern int _crocon_move(unsigned int x, unsigned int y);
-extern int _crocon_getch();
-extern int _crocon_kbhit();
-extern int _crocon_hidecurs();
+extern cbool _crocon_move(uint_t x, uint_t y);
+extern int   _crocon_getch();
+extern cbool _crocon_kbhit();
+extern cbool _crocon_hidecurs(cbool value);
 
 int crocon_initscr() {
 
@@ -94,9 +93,16 @@ int crocon_settitle(const char* title) {
 }
 
 int crocon_getver(CROCVERSION* version) {
-	version->major = 26;
-	version->minor = 4;
-	version->patch = 21;
+	version->major  = 0;
+	version->minor  = 0;
+	version->patch  = 1;
+
+	#ifdef CROCON_VERSION_PREFIX
+		version->suffix = CROCON_VERSION_PREFIX; 
+	#else
+		version->suffix = "-alpha1"; 
+	#endif
+
 	return ctrue;
 }
 
@@ -127,12 +133,20 @@ int crocon_fillscr(
 	return _crocon_fillscr(bg_color, fg_color, c);	
 }
 
+int crocon_cputchar(rgbi4_t fg_color, const char c) {
+	return _crocon_cputchar(COLOR_TRANSPARENT, fg_color, c);	
+}
+
+int crocon_cputchar2(rgbi4_t bg_color, rgbi4_t fg_color, const char c) {
+	return _crocon_cputchar(bg_color, fg_color, c);	
+}
+
 int crocon_cprintf(rgbi4_t fg_color, const char* str) {
-	return _crocon_cprintf(fg_color, str);
+	return _crocon_cprintf(COLOR_TRANSPARENT, fg_color, str);
 }
 
 int crocon_cprintf2(rgbi4_t bg_color, rgbi4_t fg_color, const char* str) {
-	return _crocon_cprintf2(bg_color, fg_color, str);
+	return _crocon_cprintf(bg_color, fg_color, str);
 }
 
 int crocon_cprintf3(
@@ -141,7 +155,7 @@ int crocon_cprintf3(
 	va_list args;
 	va_start(args, str);
 
-	_crocon_cprintf3(fg_color, length, str, args);
+	_crocon_cprintf_va(COLOR_TRANSPARENT, fg_color, length, str, args);
 
 	va_end(args);
 
@@ -154,7 +168,7 @@ int crocon_cprintf4(
 	va_list args;
 	va_start(args, str);
 
-	_crocon_cprintf4(bg_color, fg_color, length, str, args);
+	_crocon_cprintf_va(bg_color, fg_color, length, str, args);
 
 	va_end(args);
 
@@ -166,7 +180,7 @@ int crocon_mvcprintf(
 	rgbi4_t fg_color, const char* str
 ) {
 	_crocon_move(x, y);
-	return _crocon_cprintf(fg_color, str);
+	return _crocon_cprintf(COLOR_TRANSPARENT, fg_color, str);
 }
 
 int crocon_mvcprintf2(
@@ -175,7 +189,7 @@ int crocon_mvcprintf2(
 	const char* str
 ) {
 	_crocon_move(x, y);
-	return _crocon_cprintf2(bg_color, fg_color, str);
+	return _crocon_cprintf(bg_color, fg_color, str);
 }
 
 int crocon_mvcprintf3(
@@ -186,7 +200,7 @@ int crocon_mvcprintf3(
 	va_start(args, str);
 
  	_crocon_move(x, y);
-	_crocon_cprintf3(fg_color, length, str, args);
+	_crocon_cprintf_va(COLOR_TRANSPARENT, fg_color, length, str, args);
 
 	va_end(args);
 
@@ -202,7 +216,7 @@ int crocon_mvcprintf4(
 	va_start(args, str);
 
  	_crocon_move(x, y);
-	_crocon_cprintf4(bg_color, fg_color, length, str, args);
+	_crocon_cprintf_va(COLOR_TRANSPARENT, fg_color, length, str, args);
 
 	va_end(args);
 
@@ -221,13 +235,16 @@ int crocon_kbhit() {
 	return _crocon_kbhit();
 }
 
-int crocon_hidecurs() {
-	return _crocon_hidecurs();
+int crocon_hidecurs(cbool value) {
+	return _crocon_hidecurs(value);
 }
 
 int crocon_freescr() {
 	_crocon_clearscr();
 	_crocon_move(0, 0);
+	_crocon_freescr();
 	free(stdscr);
+
+	return ctrue;
 }
 

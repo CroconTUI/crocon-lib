@@ -6,10 +6,10 @@
 
 FILE*   _crocon_stdout;
 cbool   _crocon_conio_emu;
-struct termios _crocon_old_attrs, _crocon_new_attrs;
-int _crocon_block_mode;
+struct  termios _crocon_old_attrs, _crocon_new_attrs;
+int     _crocon_block_mode;
 
-int _crocon_initscr(CROCSCREEN* scr) {
+cbool _crocon_initscr(CROCSCREEN* scr) {
 	
 	struct winsize w;
 	_crocon_stdout = stdout;
@@ -23,23 +23,23 @@ int _crocon_initscr(CROCSCREEN* scr) {
 	return ctrue;
 }
 
-int _crocon_settitle(const char* title) {
+cbool _crocon_settitle(const char* title) {
 	printf("\033]0;%s\007", title);
-	return 0;
+	return ctrue;
 }
 
-int _crocon_clearscr() {
+cbool _crocon_clearscr() {
 	_crocon_fillscr(COLOR_BLACK, COLOR_GRAY, ' ');
-	return 0;
+	return ctrue;
 }
 
-int _crocon_coniomode(cbool value) {
+cbool _crocon_coniomode(cbool value) {
 	
 	// from: https://github.com/Flawww/linux_conio/blob/main/linux_conio.cpp
 	
 	// allow kbhit and getch on UNIX/Linux
 	if (value == _crocon_conio_emu) {
-        return -1;
+        return cfalse;
     }
     _crocon_conio_emu = ctrue;
     
@@ -47,9 +47,11 @@ int _crocon_coniomode(cbool value) {
     _crocon_new_attrs = _crocon_old_attrs;
     _crocon_new_attrs.c_lflag &= ~(ICANON | ECHO);
     tcsetattr(STDIN_FILENO, TCSANOW, &_crocon_new_attrs);
+
+	return ctrue;
 }
 
-int _crocon_noblock(cbool value) {
+cbool _crocon_noblock(cbool value) {
 	
 	// from: https://github.com/Flawww/linux_conio/blob/main/linux_conio.cpp
 	
@@ -59,11 +61,13 @@ int _crocon_noblock(cbool value) {
 	} else {
 		fcntl(STDIN_FILENO, F_SETFL, _crocon_block_mode);
 	}
+
+	return ctrue;
 }
 
-int _crocon_fillchar(
-	unsigned int orig_x, unsigned int orig_y,
-	unsigned int width, unsigned int height,
+cbool _crocon_fillchar(
+	uint_t orig_x, uint_t orig_y,
+	uint_t width, uint_t height,
 	const char c 
 ) {
 	unsigned int x = width;
@@ -78,19 +82,19 @@ int _crocon_fillchar(
 		x = width;
 	}
 
-	return 0;
+	return ctrue;
 }
 
-int _crocon_fillcolor(
-	unsigned int orig_x, unsigned int orig_y,
-	unsigned int width, unsigned int height,
+cbool _crocon_fillcolor(
+	uint_t orig_x, uint_t orig_y,
+	uint_t width, uint_t height,
 	rgbi4_t bg_color, rgbi4_t fg_color
 ) {
 	const char* color;
 	const char* def_color;
 
-	unsigned int x = width;
-	unsigned int y = height;
+	uint_t x = width;
+	uint_t y = height;
 
 	color     = _crocon_pickcolor(bg_color, fg_color);
 	def_color = "\033[m";
@@ -108,39 +112,17 @@ int _crocon_fillcolor(
 	}
 
 	
-	return 0;
+	return ctrue;
 }
 
-int _crocon_fillscr(
+cbool _crocon_fillscr(
 	rgbi4_t bg_color, rgbi4_t fg_color, const char c 
 ) {
 	printf("\033[H\033[J");
-	return 0;
+	return ctrue;
 }
 
-int _crocon_cprintf(rgbi4_t fg_color, const char* str) {
-	const char* color;
-	const char* def_color;
-	char* cstr;
-	
-	cstr = malloc((strlen(str) + 22) * sizeof(char));
-
-	color     = _crocon_pickcolor(COLOR_TRANSPARENT, fg_color);
-	def_color = "\033[m";
-
-	strcpy(cstr, color);
-	strcat(cstr, str);
-	strcat(cstr, def_color);
-	
-	printf("%s", cstr);
-	
-	free(color);
-	free(cstr);
-	
-	return 0;
-}
-
-int _crocon_cprintf2(rgbi4_t bg_color, rgbi4_t fg_color, const char* str) {
+cbool _crocon_cprintf(rgbi4_t bg_color, rgbi4_t fg_color, const char* str) {
 	const char* color;
 	const char* def_color;
 	char* cstr;
@@ -159,45 +141,35 @@ int _crocon_cprintf2(rgbi4_t bg_color, rgbi4_t fg_color, const char* str) {
 	free(color);
 	free(cstr);
 	
-	return 0;
+	return ctrue;
 }
 
-int _crocon_cprintf3(rgbi4_t fg_color, int length, const char* fmt_str, va_list args) {
+cbool _crocon_cprintf_va(
+	rgbi4_t bg_color, rgbi4_t fg_color, int length, 
+	const char* fmt_str, va_list args
+) {
 	
 	char* str = malloc(length * sizeof(length));
 	
 	vsnprintf(str, length, fmt_str, args);
 	
-	_crocon_cprintf(fg_color, str);
+	_crocon_cprintf(bg_color, fg_color, str);
 
 	free(str);
 
-	return 0;
+	return ctrue;
 }
 
-int _crocon_cprintf4(rgbi4_t bg_color, rgbi4_t fg_color, int length, const char* fmt_str, va_list args) {
-	
-	char* str = malloc(length * sizeof(length));
-	
-	vsnprintf(str, length, fmt_str, args);
-	
-	_crocon_cprintf2(bg_color, fg_color, str);
-
-	free(str);
-
-	return 0;
-}
-
-int _crocon_move(unsigned int x, unsigned int y) {
+cbool _crocon_move(unsigned int x, unsigned int y) {
 	printf("\033[%d;%dH", y + 1, x);
-	return 0;
+	return ctrue;
 }
 
 int _crocon_getch() {
 	return getchar();
 }
 
-int _crocon_kbhit() {
+cbool _crocon_kbhit() {
 	
 	int c;
 	
@@ -221,13 +193,16 @@ int _crocon_kbhit() {
     return cfalse;
 }
 
-int _crocon_hidecurs() {
+cbool _crocon_hidecurs(cbool value) {
 	
 	int result = 0;
 	
-	printf("\e[?25l");
+	if(value)
+		printf("\033[?25l");
+	else
+		printf("\033[?25h");
 
-	return result;
+	return ctrue;
 }
 
 #endif

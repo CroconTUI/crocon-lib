@@ -49,6 +49,7 @@ typedef struct _crocon_version {
 	int major;
 	int minor;
 	int patch;
+	const char* suffix;
 } CROCVERSION;
 
 #ifdef CROCON_LIB
@@ -113,7 +114,7 @@ int crocon_mvcprintf4(
 int crocon_move(unsigned int x, unsigned int y);
 int crocon_kbhit();
 int crocon_getch();
-int crocon_hidecurs();
+int crocon_hidecurs(int value);
 
 // Screen (console buffer)
 

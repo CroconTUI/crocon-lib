@@ -40,7 +40,7 @@
 
 HANDLE _crocon_stdout = INVALID_HANDLE_VALUE;
 
-int _crocon_initscr(CROCSCREEN* scr) {
+cbool _crocon_initscr(CROCSCREEN* scr) {
 	
 	HANDLE hStdOut = INVALID_HANDLE_VALUE;
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -80,31 +80,43 @@ int _crocon_initscr(CROCSCREEN* scr) {
 	return ctrue;
 }
 
-int _crocon_settitle(const char* title) {
+cbool _crocon_settitle(const char* title) {
 	int result = SetConsoleTitle(title);
 	return result;
 }
 
-int _crocon_clearscr() {
+cbool _crocon_clearscr() {
 
 	_crocon_fillscr(COLOR_BLACK, COLOR_GRAY, ' ');
+	_crocon_fillcolor(
+		0, 0,
+		stdscr->metrics.width, stdscr->metrics.height,
+		COLOR_BLACK, COLOR_GRAY
+	);
 	
 	return ctrue;	
 }
 
-int _crocon_fillchar(
-	unsigned int orig_x, unsigned int orig_y,
-	unsigned int width, unsigned int height,
+cbool _crocon_freescr() {
+
+	_crocon_hidecurs(ctrue);
+
+	return ctrue;
+}
+
+cbool _crocon_fillchar(
+	uint_t orig_x, uint_t orig_y,
+	uint_t width,  uint_t height,
 	const char c 
 ) {
 
 	COORD cursor;
 	DWORD written;
-	unsigned int x = orig_x;
-	unsigned int y = orig_y;
+	uint_t x = orig_x;
+	uint_t y = orig_y;
 	cursor.X = x;
 
-	for(y; y < (orig_y + height); y++)	{
+	for(y; y < (orig_y + height); y++) {
 		cursor.Y = y;
 		FillConsoleOutputCharacter(_crocon_stdout, c, width, cursor, &written);
 	}
@@ -112,16 +124,16 @@ int _crocon_fillchar(
 	return ctrue;
 }
 
-int _crocon_fillcolor(
-	unsigned int orig_x, unsigned int orig_y,
-	unsigned int width, unsigned int height,
-	rgbi4_t bg_color, rgbi4_t fg_color
+cbool _crocon_fillcolor(
+	uint_t  orig_x,    uint_t orig_y,
+	uint_t  width,     uint_t height,
+	rgbi4_t bg_color,  rgbi4_t fg_color
 ) {
 	COORD cursor;
 	DWORD written;
 	WORD color;
-	unsigned int x = orig_x;
-	unsigned int y = orig_y;
+	uint_t x = orig_x;
+	uint_t y = orig_y;
 
 	cursor.X = x;
 
@@ -135,9 +147,7 @@ int _crocon_fillcolor(
 	return ctrue;
 }
 
-int _crocon_fillscr(
-	rgbi4_t bg_color, rgbi4_t fg_color, const char c 
-) {
+cbool _crocon_fillscr(rgbi4_t bg_color, rgbi4_t fg_color, const char c) {
 	COORD cursor;
 	DWORD written;
 	int width;
@@ -162,31 +172,30 @@ int _crocon_fillscr(
 	return ctrue;
 }
 
-int _crocon_cprintf(rgbi4_t fg_color, const char* str) {
+cbool _crocon_cputchar(rgbi4_t bg_color, rgbi4_t fg_color, const char c) {
 
-	DWORD result;
+	COORD cursor;
 	DWORD written;
+	int width;
 	WORD color;
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
-	COORD cursor;
 
 	GetConsoleScreenBufferInfo(_crocon_stdout, &csbi);
-	cursor = csbi.dwCursorPosition;
 
-	if(fg_color != COLOR_GRAY) {
-		color = (WORD)_crocon_pickcolor(COLOR_BLACK, fg_color);
-	
-		SetConsoleTextAttribute(_crocon_stdout, color);
-	} else {
-		SetConsoleTextAttribute(_crocon_stdout, 0);
-	}
+	cursor = csbi.dwSize;
 
-	WriteConsole(_crocon_stdout, str, strlen(str), &result, NULL);
+	color = (WORD)_crocon_pickcolor(COLOR_TRANSPARENT, fg_color);
+
+	SetConsoleTextAttribute(_crocon_stdout, color);
+
+	FillConsoleOutputCharacter(
+		_crocon_stdout, c, 1, cursor, &written
+	);
 
 	return ctrue;
 }
 
-int _crocon_cprintf2(rgbi4_t bg_color, rgbi4_t fg_color, const char* str) {
+cbool _crocon_cprintf(rgbi4_t bg_color, rgbi4_t fg_color, const char* str) {
 
 	DWORD result;
 	DWORD written;
@@ -208,7 +217,10 @@ int _crocon_cprintf2(rgbi4_t bg_color, rgbi4_t fg_color, const char* str) {
 	return ctrue;
 }
 
-int _crocon_cprintf3(rgbi4_t fg_color, int length, const char* fmt_str, va_list args) {
+cbool _crocon_cprintf_va(
+	rgbi4_t bg_color, rgbi4_t fg_color, int length, 
+	const char* fmt_str, va_list args
+) {
 	
 	char* str = malloc((length + 1) * sizeof(char));
 
@@ -218,24 +230,7 @@ int _crocon_cprintf3(rgbi4_t fg_color, int length, const char* fmt_str, va_list 
 		_vsnprintf(str, length, fmt_str, args);
 	#endif
 	
-	_crocon_cprintf(fg_color, str);
-
-	free(str);
-
-	return ctrue;
-}
-
-int _crocon_cprintf4(rgbi4_t bg_color, rgbi4_t fg_color, int length, const char* fmt_str, va_list args) {
-	
-	char* str = malloc((length + 1) * sizeof(char));
-
-	#ifdef MSVC_GE_800
-		_vsnprintf_s(str, length, length, fmt_str, args);
-	#else
-		_vsnprintf(str, length, fmt_str, args);
-	#endif
-	
-	_crocon_cprintf2(bg_color, fg_color, str);
+	_crocon_cprintf(bg_color, fg_color, str);
 
 	free(str);
 
@@ -258,20 +253,20 @@ int _crocon_getch() {
 	return _getch();
 }
 
-int _crocon_kbhit() {
-	return _kbhit();
+cbool _crocon_kbhit() {
+	return _kbhit() ? cfalse : ctrue;
 }
 
-int _crocon_hidecurs() {
+cbool _crocon_hidecurs(cbool value) {
 	
 	int result = 0;
 	CONSOLE_CURSOR_INFO curs_info;
 
 	GetConsoleCursorInfo(_crocon_stdout, &curs_info);
-	curs_info.bVisible = FALSE;
+	curs_info.bVisible = value;
 	SetConsoleCursorInfo(_crocon_stdout, &curs_info);
 
-	return result;
+	return ctrue;
 }
 
 #endif
