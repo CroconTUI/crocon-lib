@@ -99,7 +99,7 @@ cbool _crocon_clearscr() {
 
 cbool _crocon_freescr() {
 
-	_crocon_hidecurs(ctrue);
+	_crocon_hidecurs(cfalse);
 
 	return ctrue;
 }
@@ -254,7 +254,7 @@ int _crocon_getch() {
 }
 
 cbool _crocon_kbhit() {
-	return _kbhit() ? cfalse : ctrue;
+	return _kbhit() == TRUE ? ctrue : cfalse;
 }
 
 cbool _crocon_hidecurs(cbool value) {
@@ -263,7 +263,7 @@ cbool _crocon_hidecurs(cbool value) {
 	CONSOLE_CURSOR_INFO curs_info;
 
 	GetConsoleCursorInfo(_crocon_stdout, &curs_info);
-	curs_info.bVisible = value;
+	curs_info.bVisible = value == ctrue ? FALSE : TRUE;
 	SetConsoleCursorInfo(_crocon_stdout, &curs_info);
 
 	return ctrue;
