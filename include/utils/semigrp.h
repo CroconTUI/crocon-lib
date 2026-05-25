@@ -89,7 +89,7 @@ typedef enum {
 	
 	SG_LINES_2V_2H   = 0x256C
 	
-} semigrp_t;
+} sgint_t;
 
 
 #ifdef __cplusplus
