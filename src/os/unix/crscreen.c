@@ -123,7 +123,8 @@ cbool _crocon_fillcolor(
 		fflush(stdout);
 		x = width;
 	}
-
+	
+	free(color);
 	
 	return ctrue;
 }
