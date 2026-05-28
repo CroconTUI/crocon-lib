@@ -26,6 +26,7 @@ cbool _crocon_initscr(CROCSCREEN* scr) {
 cbool _crocon_freescr() {
 
 	_crocon_hidecurs(cfalse);
+	_crocon_coniomode(cfalse);
 
 	return ctrue;
 }
@@ -46,14 +47,19 @@ cbool _crocon_coniomode(cbool value) {
 	
 	// allow kbhit and getch on UNIX/Linux
 	if (value == _crocon_conio_emu) {
-        return cfalse;
-    }
-    _crocon_conio_emu = ctrue;
-    
-    tcgetattr(STDIN_FILENO, &_crocon_old_attrs);
-    _crocon_new_attrs = _crocon_old_attrs;
-    _crocon_new_attrs.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &_crocon_new_attrs);
+		return cfalse;
+	}
+	_crocon_conio_emu = value;
+	
+	tcgetattr(STDIN_FILENO, &_crocon_old_attrs);
+	_crocon_new_attrs = _crocon_old_attrs;
+	
+	if(value == ctrue)
+		_crocon_new_attrs.c_lflag &= ~(ICANON | ECHO);
+	else
+		_crocon_new_attrs.c_lflag |= (ICANON | ECHO);
+	
+	tcsetattr(STDIN_FILENO, TCSANOW, &_crocon_new_attrs);
 
 	return ctrue;
 }
@@ -208,7 +214,7 @@ cbool _crocon_hidecurs(cbool value) {
 	
 	int result = 0;
 	
-	if(value)
+	if(value == ctrue)
 		printf("\033[?25l");
 	else
 		printf("\033[?25h");
