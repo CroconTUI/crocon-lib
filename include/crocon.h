@@ -116,6 +116,9 @@ int crocon_kbhit();
 int crocon_getch();
 int crocon_hidecurs(int value);
 
+int crocon_cputchar(rgbi4_t fg_color, const char c);
+int crocon_cputchar2(rgbi4_t bg_color, rgbi4_t fg_color, const char c);
+
 // Screen (console buffer)
 
 int crocon_initscr();

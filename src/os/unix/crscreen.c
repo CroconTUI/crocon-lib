@@ -23,6 +23,13 @@ cbool _crocon_initscr(CROCSCREEN* scr) {
 	return ctrue;
 }
 
+cbool _crocon_freescr() {
+
+	_crocon_hidecurs(cfalse);
+
+	return ctrue;
+}
+
 cbool _crocon_settitle(const char* title) {
 	printf("\033]0;%s\007", title);
 	return ctrue;
@@ -158,6 +165,10 @@ cbool _crocon_cprintf_va(
 	free(str);
 
 	return ctrue;
+}
+
+cbool _crocon_cputchar(rgbi4_t bg_color, rgbi4_t fg_color, const char c) {
+	return _crocon_cprintf(bg_color, fg_color, &c);
 }
 
 cbool _crocon_move(unsigned int x, unsigned int y) {

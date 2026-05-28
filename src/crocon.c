@@ -235,7 +235,7 @@ int crocon_kbhit() {
 	return _crocon_kbhit();
 }
 
-int crocon_hidecurs(cbool value) {
+int crocon_hidecurs(int value) {
 	return _crocon_hidecurs(value);
 }
 

@@ -35,6 +35,7 @@
 
 #include <os/unix/crunix.h>
 #include <os/unix/crcolors.h>
+#include <utils/c_exts.h>
 
 #include <stdlib.h>
 
@@ -42,14 +43,16 @@
 extern "C" {
 #endif
 
-extern int _crocon_initscr(CROCSCREEN* scr);
-extern int _crocon_settitle();
-extern int _crocon_clearscr();
-extern int _crocon_coniomode(cbool value);
+extern cbool _crocon_initscr(CROCSCREEN* scr);
+extern cbool _crocon_settitle();
+extern cbool _crocon_clearscr();
+extern cbool _crocon_coniomode(cbool value);
 
-extern int _crocon_fillscr(
+extern cbool _crocon_fillscr(
 	rgbi4_t bg_color, rgbi4_t fg_color, const char c 
 );
+
+extern cbool _crocon_hidecurs(cbool value);
 
 #ifdef __cplusplus
 }
