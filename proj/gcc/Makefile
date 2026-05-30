@@ -20,12 +20,14 @@ OBJ_DIR         =  $(CROCON_LIB_ROOT)/../out/library/obj
 
 CC = gcc
 
-ifeq ($(CROCON_LEGACY),true)
-C_LEGACY        = -DUNIX_LEGACY -fno-optimize-sibling-calls 
+ifeq ($(OPENDSE_LEGACY),true)
+C_LEGACY        = -DUNIX_LEGACY
+else
+C_LEGACY        = -fno-optimize-sibling-calls
 endif
 
 ifeq ($(CROCON_DEBUG),true)
-C_FLAGS         =  -O0 -fPIC -DCROCON_LIB -DUNIX -DHAVE_VPRINTF $(C_LEGACY) -g3 -fno-omit-frame-pointer
+C_FLAGS         =  -O0 -fPIC -DCROCON_LIB -DUNIX -DHAVE_VPRINTF $(C_LEGACY) -g3
 else
 C_FLAGS         =  -O2 -fPIC -DCROCON_LIB -DUNIX -DHAVE_VPRINTF $(C_LEGACY)
 endif
