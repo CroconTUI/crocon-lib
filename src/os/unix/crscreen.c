@@ -155,8 +155,6 @@ cbool _crocon_cprintf(rgbi4_t bg_color, rgbi4_t fg_color, const char* str) {
 	free(color);
 	free(cstr);
 	
-	fflush(stdout);
-	
 	return ctrue;
 }
 
