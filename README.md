@@ -56,10 +56,15 @@ repo sync
 
 **On Windows**, run the `make.bat` script from the `build` directory in the project root directory.
 
-_NMAKE is present in the VS Developer Command Prompt. In MSVC 2.0, launching a separate command prompt is not required._
+> [!NOTE]
+> NMAKE is present in the VS Developer Command Prompt. In MSVC 2.0, launching a separate command prompt is not required.
+> You can enable debug symbols before building by specifying the `CROCON_DEBUG` variable on the command line or directly: `make [target] y`
 
 **On Linux:**
 ```sh
 chmod +x ./build/make.sh
 ./make.sh --prefix /usr/local/lib
 ```
+
+> [!NOTE]
+> You can enable debugging symbols using the `--enable-debug` flag, and extend support for older Linux distros using the `--enable-legacy-support` flag.
