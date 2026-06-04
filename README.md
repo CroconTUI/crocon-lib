@@ -1,5 +1,5 @@
-# Crocon
-Crocon Terminal User Interface Framework. Developed with maximum compatibillity for Windows and Unix-like OS, such as GNU/Linux.
+# CroconTUI
+Crocon Terminal User Interface Framework. Developed with maximum backward compatibillity for Windows and Unix-like OS, such as GNU/Linux.
 
 ## Minimum system requirements
 
@@ -46,6 +46,13 @@ gcc --version    # gcc
 >     Linux 6.12.74, GCC 14.2.0, glibc 2.41, bash 5.2.37
 
 ### How to Build
+
+First, clone the our repositories via [Repo Launcher](https://github.com/GerritCodeReview/git-repo).
+
+```sh
+repo init -u https://github.com/CroconTUI/crocon-manifest -b main
+repo sync
+```
 
 **On Windows**, run the `make.bat` script from the `build` directory in the project root directory.
 
