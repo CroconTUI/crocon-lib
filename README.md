@@ -47,7 +47,7 @@ gcc --version    # gcc
 
 ### How to Build
 
-First, clone the our repositories via [Repo Launcher](https://github.com/GerritCodeReview/git-repo).
+First, clone the our repositories via [Repo Launcher](https://github.com/GerritCodeReview/git-repo):
 
 ```sh
 repo init -u https://github.com/CroconTUI/crocon-manifest -b main
