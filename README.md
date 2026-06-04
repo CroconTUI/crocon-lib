@@ -61,5 +61,5 @@ _NMAKE is present in the VS Developer Command Prompt. In MSVC 2.0, launching a s
 **On Linux:**
 ```sh
 chmod +x ./build/make.sh
-./make.sh --prefix /lib     # for install library type '/lib' or '/lib64'
+./make.sh --prefix /usr/local/lib
 ```
