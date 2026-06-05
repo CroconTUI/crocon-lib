@@ -90,6 +90,7 @@ _Source: <a href="http://www.malsmith.net/blog/visual-c-visual-history/">malsmit
 <table>
   <tbody>
     <tr>
+      <th width="120" rowspan="2">Executable file format</th>
       <th width="120" rowspan="2">Minimum libc version</th>
       <th width="180" colspan="3">Host Linux distributions</th>
     </tr>
@@ -99,6 +100,23 @@ _Source: <a href="http://www.malsmith.net/blog/visual-c-visual-history/">malsmit
       <th width="180">Shipped with</th>
     </tr>
     <tr>
+      <td rowspan="4">a.out<br>(<i>up to Linux 5.18</i>)</td>
+      <td rowspan="4">BSD libc 4.6</td>
+      <td rowspan="4">Slackware 2.0</td>
+      <td rowspan="4"><b>Internet:</b> July 1994<br><b>CD:</b> May 1995</td>
+      <td>Linux 1.2.8</td>
+    </tr>
+    <tr>
+      <td>GCC 2.7.2.3</td>
+    </tr>
+    <tr>
+      <td>BSD libc 4.6.27</td>
+    </tr>
+    <tr>
+      <td>bash 1.14.4</td>
+    </tr>
+    <tr>
+      <td rowspan="16">ELF</td>
       <td rowspan="16">glibc 2.0</td>
       <td rowspan="4">Debian 2.0</td>
       <td rowspan="4">July 1998</td>
