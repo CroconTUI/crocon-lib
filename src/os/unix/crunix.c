@@ -14,4 +14,8 @@ void libcrocon_finish() {
 
 #endif
 
+#ifdef UNIX_AOUT
+void main() {}
+#endif
+
 #endif

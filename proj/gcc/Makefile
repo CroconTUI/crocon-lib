@@ -22,7 +22,7 @@ CC              =  gcc
 
 ifeq ($(CROCON_AOUT),true)
 C_PIE           = -fno-pie
-C_AOUT          = -DCROCON_AOUT
+C_AOUT          = -DUNIX_AOUT
 CC_LIB          = -lgcc
 else
 C_PIE           = -fPIC
