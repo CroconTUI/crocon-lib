@@ -103,7 +103,7 @@ cbool _crocon_fillcolor(
 	uint_t width, uint_t height,
 	rgbi4_t bg_color, rgbi4_t fg_color
 ) {
-	const char* color;
+	char* color;
 	const char* def_color;
 
 	uint_t x = width;
@@ -137,7 +137,7 @@ cbool _crocon_fillscr(
 }
 
 cbool _crocon_cprintf(rgbi4_t bg_color, rgbi4_t fg_color, const char* str) {
-	const char* color;
+	char* color;
 	const char* def_color;
 	char* cstr;
 	

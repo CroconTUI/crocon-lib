@@ -18,18 +18,26 @@ SRC_DIRS        =  $(SRC_DIR) \
 BIN_DIR         =  $(CROCON_LIB_ROOT)/../out/library/bin
 OBJ_DIR         =  $(CROCON_LIB_ROOT)/../out/library/obj
 
-CC = gcc
+CC              =  gcc
 
-ifeq ($(OPENDSE_LEGACY),true)
+ifeq ($(CROCON_AOUT),true)
+C_PIE           = -fno-pie
+C_AOUT          = -DCROCON_AOUT
+CC_LIB          = -lgcc
+else
+C_PIE           = -fPIC
+endif
+
+ifeq ($(CROCON_LEGACY),true)
 C_LEGACY        = -DUNIX_LEGACY
 else
 C_LEGACY        = -fno-optimize-sibling-calls
 endif
 
 ifeq ($(CROCON_DEBUG),true)
-C_FLAGS         =  -O0 -fPIC -DCROCON_LIB -DUNIX -DHAVE_VPRINTF $(C_LEGACY) -g3
+C_FLAGS         =  -O0 $(C_PIE) -DCROCON_LIB -DUNIX -DHAVE_VPRINTF $(C_LEGACY) $(C_AOUT) -g3
 else
-C_FLAGS         =  -O2 -fPIC -DCROCON_LIB -DUNIX -DHAVE_VPRINTF $(C_LEGACY)
+C_FLAGS         =  -O2 $(C_PIE) -DCROCON_LIB -DUNIX -DHAVE_VPRINTF $(C_LEGACY)
 endif
 
 SOURCES         =  $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.c))
@@ -58,9 +66,8 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/utils/%.c
 $(OBJ_DIR)/%.o: $(SRC_DIR)/widgets/%.c
 	$(CC) $(C_FLAGS) -I$(INC_DIR) -c $< -o $@
 
-
 $(BIN_DIR)/lib$(PROJECT).so: $(OBJECTS)
-	$(CC) $(LD_ARCH) -shared -o $@ $(OBJECTS) $(LD_FLAGS)
+	$(CC) $(LD_ARCH) -shared $(CC_LIB) -o $@ $(OBJECTS) $(LD_FLAGS)
 
 $(BIN_DIR)/lib$(PROJECT).a: $(OBJECTS)
 	ar rcs $@ $(OBJECTS)
