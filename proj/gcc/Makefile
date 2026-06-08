@@ -4,6 +4,7 @@ CROCON_LIB_ROOT =  ../..
 
 CROCON_DEBUG    =? false
 CROCON_LEGACY   =? false
+CROCON_AOUT     =? false
 
 INC_DIR         =  $(CROCON_LIB_ROOT)/include
 SRC_DIR         =  $(CROCON_LIB_ROOT)/src
@@ -21,7 +22,7 @@ OBJ_DIR         =  $(CROCON_LIB_ROOT)/../out/library/obj
 CC              =  gcc
 
 ifeq ($(CROCON_AOUT),true)
-C_PIE           = -fno-pie
+C_PIE           = -fno-pic
 C_AOUT          = -DUNIX_AOUT
 CC_LIB          = -lgcc
 else
@@ -37,7 +38,7 @@ endif
 ifeq ($(CROCON_DEBUG),true)
 C_FLAGS         =  -O0 $(C_PIE) -DCROCON_LIB -DUNIX -DHAVE_VPRINTF $(C_LEGACY) $(C_AOUT) -g3
 else
-C_FLAGS         =  -O2 $(C_PIE) -DCROCON_LIB -DUNIX -DHAVE_VPRINTF $(C_LEGACY)
+C_FLAGS         =  -O2 $(C_PIE) -DCROCON_LIB -DUNIX -DHAVE_VPRINTF $(C_LEGACY) $(C_AOUT)
 endif
 
 SOURCES         =  $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.c))
@@ -67,7 +68,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/widgets/%.c
 	$(CC) $(C_FLAGS) -I$(INC_DIR) -c $< -o $@
 
 $(BIN_DIR)/lib$(PROJECT).so: $(OBJECTS)
-	$(CC) $(LD_ARCH) -shared $(CC_LIB) -o $@ $(OBJECTS) $(LD_FLAGS)
+	$(CC) $(LD_ARCH) -shared -o $@ $(OBJECTS) $(LD_FLAGS) $(CC_LIB) 
 
 $(BIN_DIR)/lib$(PROJECT).a: $(OBJECTS)
 	ar rcs $@ $(OBJECTS)

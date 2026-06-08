@@ -32,7 +32,10 @@ cbool _crocon_freescr() {
 }
 
 cbool _crocon_settitle(const char* title) {
-	printf("\033]0;%s\007", title);
+	char* term_t = getenv("TERM");
+	
+	if(strcmp(term_t, "linux") != 0)
+		printf("\033]0;%s\007", title);
 	return ctrue;
 }
 
@@ -116,10 +119,6 @@ cbool _crocon_fillcolor(
 	for(y; y > 0; y--) {
 		printf("\033[%d;%dH", orig_y + y, (orig_x - width) + x);
 		printf(color);
-		for(x; x > 0; x--) {
-			putchar(' ');
-		}
-		printf(def_color);
 		fflush(stdout);
 		x = width;
 	}
@@ -151,6 +150,7 @@ cbool _crocon_cprintf(rgbi4_t bg_color, rgbi4_t fg_color, const char* str) {
 	strcat(cstr, def_color);
 	
 	printf("%s", cstr);
+	fflush(_crocon_stdout);
 	
 	free(color);
 	free(cstr);
@@ -168,6 +168,7 @@ cbool _crocon_cprintf_va(
 	vsnprintf(str, length, fmt_str, args);
 	
 	_crocon_cprintf(bg_color, fg_color, str);
+	fflush(_crocon_stdout);
 
 	free(str);
 
