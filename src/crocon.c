@@ -95,7 +95,7 @@ int crocon_settitle(const char* title) {
 int crocon_getver(CROCVERSION* version) {
 	version->major  = 0;
 	version->minor  = 0;
-	version->patch  = 1;
+	version->patch  = 2;
 
 	#ifdef CROCON_VERSION_PREFIX
 		version->suffix = CROCON_VERSION_PREFIX; 
